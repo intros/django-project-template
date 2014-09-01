@@ -10,6 +10,6 @@ mysql -u root --password=password -e "GRANT ALL ON {{ project_name }}.* TO '{{ p
 cd /vagrant
 mkdir -p data/logs
 pip install -r requirements.txt
-python manage.py syncdb
+python manage.py syncdb --noinput
 python manage.py migrate
 date > /etc/vagrant_provisioned_at
