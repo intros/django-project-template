@@ -11,11 +11,22 @@ The project template for creating new instances of the intros application
 
 ## Usage ##
 
+### Use Vagrant.  It's better! ###
+[Vagrant](http://vagrantup.com) does virtual machines.  You might need to also install [VirtualBox](https://www.virtualbox.org/wiki/Downloads)
+```shell
+
+django-admin.py startproject --template https://github.com/intros/django-project-template/zipball/master --name templates/partials/header.html --name=provision_vagrant.sh intros
+
+vagrant up
+vagrant ssh
+
+```
+
 ### Create the project locally ###
 
 ```shell
 
-django-admin.py startproject --template https://github.com/intros/django-project-template/zipball/master intros
+django-admin.py startproject --template https://github.com/intros/django-project-template/zipball/master --name templates/partials/header.html --name=provision_vagrant.sh intros
 cd intros
 pip install -r requirements.txt
 
@@ -23,24 +34,17 @@ pip install -r requirements.txt
 
 ### Update the configuration ###
 
-In ````intros/settings/dev.py```` update settings for secret keys:
+In ````intros/settings/base.py```` update settings for secret keys:
 ```python
 
-# Django-SES
-#EMAIL_BACKEND = 'django_ses.SESBackend'
-# These are optional -- if they're set as environment variables they won't
-# need to be set here as well
-AWS_ACCESS_KEY_ID = 'YOUR-ACCESS-KEY-ID'
-AWS_SECRET_ACCESS_KEY = 'YOUR-SECRET-ACCESS-KEY'
-# Additionally, you can specify an optional region, like so:
-AWS_SES_REGION_NAME = 'us-east-1'
-AWS_SES_REGION_ENDPOINT = 'email.us-east-1.amazonaws.com'
+# Use environment variables for cool stuff, or hardcode them if that's more your style 
 
-# Django Storages S3
-AWS_ACCESS_KEY_ID = 'YOUR-ACCESS-KEY-ID'
-AWS_SECRET_ACCESS_KEY = 'YOUR-SECRET-ACCESS-KEY'
-AWS_STORAGE_BUCKET_NAME = ''
-AWS_CALLING_FORMAT = ''
+AWS_ACCESS_KEY_ID = os.environ.get("AWS_ACCESS_KEY_ID", False)
+AWS_SECRET_ACCESS_KEY = os.environ.get("AWS_SECRET_ACCESS_KEY", False)
+AWS_SES_REGION_NAME = os.environ.get("AWS_SES_REGION_NAME", "us-east-1")
+AWS_SES_REGION_ENDPOINT = os.environ.get("AWS_SES_REGION_ENDPOINT", "email.%s.amazonaws.com" % AWS_SES_REGION_NAME)
+AWS_STORAGE_BUCKET_NAME = os.environ.get("AWS_STORAGE_BUCKET_NAME", "")
+AWS_CALLING_FORMAT = os.environ.get("AWS_CALLING_FORMAT", "")
 
 ```
 

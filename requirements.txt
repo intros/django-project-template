@@ -9,6 +9,7 @@ django-frontend-skeleton
 django-mailbox
 django-ses
 django-storages
+django-taggit
 django-telemetry
 django-zurb-foundation
 email_reply_parser

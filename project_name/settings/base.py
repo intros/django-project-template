@@ -18,6 +18,15 @@ ADMINS = (
 
 MANAGERS = ADMINS
 
+# Use environment variables for cool stuff, or hardcode them if that's more your style
+
+AWS_ACCESS_KEY_ID = os.environ.get("AWS_ACCESS_KEY_ID", False)
+AWS_SECRET_ACCESS_KEY = os.environ.get("AWS_SECRET_ACCESS_KEY", False)
+AWS_SES_REGION_NAME = os.environ.get("AWS_SES_REGION_NAME", "us-east-1")
+AWS_SES_REGION_ENDPOINT = os.environ.get("AWS_SES_REGION_ENDPOINT", "email.%s.amazonaws.com" % AWS_SES_REGION_NAME)
+AWS_STORAGE_BUCKET_NAME = os.environ.get("AWS_STORAGE_BUCKET_NAME", "")
+AWS_CALLING_FORMAT = os.environ.get("AWS_CALLING_FORMAT", "")
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
