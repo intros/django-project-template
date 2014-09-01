@@ -15,7 +15,7 @@ urlpatterns = patterns(
 
     url(r'^admin/', include(admin.site.urls)),
     url(r'^admin/django-ses/', include('django_ses.urls')),
-    url('', include('social.apps.django_app.urls', namespace='social'))
+    url('', include('social.apps.django_app.urls', namespace='social')),
     url('', include('introductions.urls', namespace='introductions'))
 
 )
