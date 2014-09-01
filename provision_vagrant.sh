@@ -8,6 +8,7 @@ apt-get install -y libmysqlclient-dev mysql-server-5.5 postgresql python-dev pyt
 mysqladmin -u root --password=password create {{ project_name }}
 mysql -u root --password=password -e "GRANT ALL ON {{ project_name }}.* TO '{{ project_name }}'@'localhost' IDENTIFIED BY '{{ project_name }}';"
 cd /vagrant
+mkdir -p data/logs
 pip install -r requirements.txt
 python manage.py syncdb
 python manage.py migrate
