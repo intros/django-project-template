@@ -1,0 +1,33 @@
+{% extends 'djfrontend/base.html' %}
+{% block body_content %}
+{% include 'partials/header.html' %}
+    {% block inner_content %}
+<div class="container">
+
+  <div class="starter-template">
+    <h1>Bootstrap starter template</h1>
+    <p class="lead">Use this document as a way to quickly start any new project.<br> All you get is this text and a mostly barebones HTML document.</p>
+  </div>
+  <div>
+{% for object in objects %}
+    {# Each "contact" is a Contact model object. #}
+    <p>{{ object }}</p>
+    ...
+{% endfor %}
+</div>
+
+<div class="pagination">
+    <span class="row step-links">
+        {% if objects.has_previous %}
+            <a href="?page={{ objects.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ objects.number }} of {{ objects.paginator.num_pages }}.
+        </span>
+
+        {% if objects.has_next %}
+            <a href="?page={{ objects.next_page_number }}">next</a>
+        {% endif %}
+    </span>
+</div>
