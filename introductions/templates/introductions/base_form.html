@@ -1,0 +1,25 @@
+{% extends 'djfrontend/base.html' %}
+{% load djfrontend %}
+{% block head_css %}
+{% djfrontend_normalize %}
+{% djfrontend_twbs_css %}
+{% endblock %}
+
+{% block body_content %}
+{% include 'partials/header.html' %}
+    {% block inner_content %}
+<div class="container">
+
+  <header class="jumbotron subhead">
+    <h1>Create One</h1>
+  </header>
+  <div class="row">
+      <form method=POST>
+      {{ form.as_p }}
+      {% csrf_token %}
+      <input type=submit></input>
+      </form>
+  </div>
+</div>
+    {% endblock %}
+{% endblock %} 

@@ -31,6 +31,9 @@ AWS_HEADERS = {
     'Cache-Control': 'max-age=86400',
 }
 
+DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
+STATICFILES_STORAGE = 'django.core.files.storage.FileSystemStorage'
+
 
 try:
     from .local import *

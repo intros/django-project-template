@@ -152,6 +152,9 @@ INSTALLED_APPS = (
     'social.apps.django_app.default',
     'south',
     'storages',
+    'taggit',
+
+    'introductions',
 
     # Uncomment the next line to enable the admin:
     'django.contrib.admin',
