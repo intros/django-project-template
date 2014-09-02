@@ -12,4 +12,5 @@ mkdir -p data/logs
 pip install -r requirements.txt
 python manage.py syncdb --noinput
 python manage.py migrate
+python manage.py collectstatic --noinput
 date > /etc/vagrant_provisioned_at
