@@ -39,7 +39,7 @@ AWS_CALLING_FORMAT = os.environ.get("AWS_CALLING_FORMAT", "")
 #    }
 #}
 
-DATABASES = {'default': dj_database_url.config(default='sqlite:///%s.sqlite' % os.path.join(PROJECT_ROOT, {{ project_name }}))}
+DATABASES = {'default': dj_database_url.config(default='sqlite:///%s' % os.path.join(PROJECT_ROOT, '{{ project_name }}.sqlite'))}
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
