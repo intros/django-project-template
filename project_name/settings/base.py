@@ -3,6 +3,7 @@
 
 import os
 import sys
+import dj_database_url
 
 PROJECT_ROOT = os.path.join(os.path.dirname(__file__), '..', '..')
 
@@ -27,16 +28,18 @@ AWS_SES_REGION_ENDPOINT = os.environ.get("AWS_SES_REGION_ENDPOINT", "email.%s.am
 AWS_STORAGE_BUCKET_NAME = os.environ.get("AWS_STORAGE_BUCKET_NAME", "")
 AWS_CALLING_FORMAT = os.environ.get("AWS_CALLING_FORMAT", "")
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': '{{ project_name }}',
-        'USER': '{{ project_name }}',
-        'PASSWORD': '{{ project_name }}',
-        'HOST': '',  # Set to empty string for localhost.
-        'PORT': '',  # Set to empty string for default.
-    }
-}
+#DATABASES = {
+#    'default': {
+#        'ENGINE': 'django.db.backends.mysql',
+#        'NAME': '{{ project_name }}',
+#        'USER': '{{ project_name }}',
+#        'PASSWORD': '{{ project_name }}',
+#        'HOST': '',  # Set to empty string for localhost.
+#        'PORT': '',  # Set to empty string for default.
+#    }
+#}
+
+DATABASES = {'default': dj_database_url.config(default='sqlite:///%s' % os.path.join(PROJECT_ROOT, '{{ project_name }}.sqlite'))}
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
