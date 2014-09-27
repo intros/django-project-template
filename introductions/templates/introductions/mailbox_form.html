@@ -13,9 +13,14 @@
       {% csrf_token %}
       <input type=submit></input>
       </form>
+        <a href="{% url 'social:begin' 'google-oauth2' %}"?next={{ request.path }}>Create Google Mailbox</a>
+  </div>
+  <div class="row">
+      <p></p>
+      <a role="button" class="btn btn-default" href="{% url 'social:begin' 'google-oauth2' %}?next={{ request.path }}">Create Google Mailbox</a>
   </div>
 </div>
-<a href="{% url 'social:begin' 'google-oauth2' %}"?next={{ request.path }}>Create Google Mailbox</a>
+
     {% endblock %}
     <footer class="footer">
         <p class="pull-right"><a href="#">Back to top</a></p>
