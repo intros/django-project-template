@@ -56,6 +56,12 @@ STATICFILES_STORAGE = 'django.core.files.storage.FileSystemStorage'
 # DB: {{ project_name }}
 # Uncomment this line for override the setings with mysql.
 #DATABASES = {'default': dj_database_url.config(default='postgres://{{project_name}}:{{project_name}}@localhost:5432/{{ project_name }}')}
+
+
+#SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '744922538552-od4jnjterqva46ajonad16ifc14ukm1n.apps.googleusercontent.com'
+#SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = '92rgzii0Mtxoc9O0Aqqdtsgq'
+#SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = ['https://mail.google.com']
+
 try:
     from .local import *
 except ImportError:
