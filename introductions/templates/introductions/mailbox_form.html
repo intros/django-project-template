@@ -15,7 +15,7 @@
       </form>
   </div>
 </div>
-<a href="{% url 'social:begin' 'google-oauth2' %}">Create Google Mailbox</a>
+<a href="{% url 'social:begin' 'google-oauth2' %}"?next={{ request.path }}>Create Google Mailbox</a>
     {% endblock %}
     <footer class="footer">
         <p class="pull-right"><a href="#">Back to top</a></p>
