@@ -20,3 +20,4 @@ python-social-auth
 pyzmail
 sphinx
 dj-database-url
+

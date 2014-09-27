@@ -1,5 +1,5 @@
 # urls.py
-from django.conf.urls import url
+from django.conf.urls import url, include
 from introductions.views import (
     IntroductionCreateView,
     IntroductionDetailView,
@@ -24,6 +24,11 @@ from introductions.views import (
     PersonEmailDetailView,
     PersonEmailListView,
     PersonEmailUpdateView,
+    
+    MailboxListView,
+    MailboxDetailView,
+    MailboxUpdateView,
+    MailboxCreateView
 )
 
 urlpatterns = [
@@ -46,4 +51,9 @@ urlpatterns = [
     url(r'^person_email/(?P<pk>[0-9]+)/$', PersonEmailDetailView.as_view(), name="person_email_detail"),
     url(r'^person_emails/$', PersonEmailListView.as_view(), name="person_email_list"),
     url(r'^person_email/(?P<pk>[0-9]+)/update/$', PersonEmailUpdateView.as_view(), name="person_email_update"),
+    url(r'^mailbox/$', MailboxCreateView.as_view(), name="mailbox_create"),
+    url(r'^mailbox/(?P<pk>[0-9]+)/$', MailboxDetailView.as_view(), name="mailbox_detail"),
+    url(r'^mailboxs/$', MailboxListView.as_view(), name="mailbox_list"),
+    url(r'^mailbox/(?P<pk>[0-9]+)/update/$', MailboxUpdateView.as_view(), name="mailbox_update"),
+    url(r'', include('social.apps.django_app.urls', namespace='social'))
 ]
