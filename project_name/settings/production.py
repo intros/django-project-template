@@ -29,6 +29,12 @@ DEBUG = False
 # Uncomment this line for override the setings with mysql.
 #DATABASES = {'default': dj_database_url.config(default='postgres://{{project_name}}:{{project_name}}@localhost:5432/{{ project_name }}')}
 
+
+#add key based on https://developers.google.com/api-client-library/python/guide/aaa_oauth
+#SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = ''
+#SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = ''
+#SOCIAL_AUTH_GOOGLE_OAUTH2_SCOPE = ['https://mail.google.com']
+
 try:
     from .local import *
 except ImportError:

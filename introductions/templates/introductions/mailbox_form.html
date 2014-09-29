@@ -1,0 +1,31 @@
+{% extends 'introductions/base_form.html' %}
+{% include 'partials/header.html' %}
+{% block body_content %}
+    {% block inner_content %}
+<div class="container">
+
+  <header class="jumbotron subhead">
+    <h1>Create One</h1>
+  </header>
+  <div class="row">
+      <form method=POST>
+      {{ form.as_p }}
+      {% csrf_token %}
+      <input type=submit></input>
+      </form>
+        <a href="{% url 'social:begin' 'google-oauth2' %}"?next={{ request.path }}>Create Google Mailbox</a>
+  </div>
+  <div class="row">
+      <p></p>
+      <a role="button" class="btn btn-default" href="{% url 'social:begin' 'google-oauth2' %}?next={{ request.path }}">Create Google Mailbox</a>
+  </div>
+</div>
+
+    {% endblock %}
+    <footer class="footer">
+        <p class="pull-right"><a href="#">Back to top</a></p>
+        <p>Built with love in Nicaragua by <a href="http://twitter.com/alexlovelltroy" target="_blank">@alexlovelltroy</a>.</p>
+      </footer>
+{% endblock %} 
+
+

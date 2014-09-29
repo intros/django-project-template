@@ -1,36 +1,45 @@
 {% extends 'djfrontend/base.html' %}
+{% load djfrontend %}
+{% block head_css %}
+{% djfrontend_normalize %}
+{% djfrontend_twbs_css %}
+{% endblock %}
+
 {% block body_content %}
 {% include 'partials/header.html' %}
     {% block inner_content %}
 <div class="container">
-
+<header class="jumbotron subhead">
   <div class="starter-template">
     <h1>Bootstrap starter template</h1>
+    </div>
+</header>
     <p class="lead">Use this document as a way to quickly start any new project.<br> All you get is this text and a mostly barebones HTML document.</p>
-  </div>
   <div>
-{% for object in objects %}
+
+{% for object in object_list %}
     {# Each "contact" is a Contact model object. #}
     <p>{{ object }}</p>
-    ...
 {% endfor %}
 </div>
 
+{% if is_paginated %}
 <div class="pagination">
     <span class="row step-links">
-        {% if objects.has_previous %}
-            <a href="?page={{ objects.previous_page_number }}">previous</a>
+        {% if page_obj.has_previous %}
+            <a href="?page={{ page_obj.previous_page_number }}">previous</a>
         {% endif %}
 
         <span class="current">
-            Page {{ objects.number }} of {{ objects.paginator.num_pages }}.
+            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
         </span>
 
-        {% if objects.has_next %}
-            <a href="?page={{ objects.next_page_number }}">next</a>
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">next</a>
         {% endif %}
     </span>
 </div>
+{% endif %}
   {% endblock %}
 <footer class="footer">
   <p class="pull-right"><a href="#">Back to top</a></p>

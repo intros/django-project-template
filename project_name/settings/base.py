@@ -5,6 +5,8 @@ import os
 import sys
 import dj_database_url
 
+import  django.conf.global_settings as DEFAULT_SETTINGS
+
 PROJECT_ROOT = os.path.join(os.path.dirname(__file__), '..', '..')
 
 # Modify sys.path to include the lib directory
@@ -167,10 +169,8 @@ INSTALLED_APPS = (
 
 )
 
-#CELERY_RESULT_BACKEND='djcelery.backends.database:DatabaseBackend'
-CELERY_RESULT_BACKEND='djcelery.backends.cache:CacheBackend'
-
-AUTHENTICATION_BACKENDS = ( 'social.backends.google.GoogleOAuth2',
+AUTHENTICATION_BACKENDS = (
+    'social.backends.google.GoogleOAuth2',
     'social.backends.twitter.TwitterOAuth',
     'django.contrib.auth.backends.ModelBackend',
 )
@@ -195,6 +195,11 @@ STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 
 PATH_DATA = os.path.join(PROJECT_ROOT, 'data')
 PATH_LOG = os.path.join(PATH_DATA, 'logs')
+
+
+TEMPLATE_CONTEXT_PROCESSORS = DEFAULT_SETTINGS.TEMPLATE_CONTEXT_PROCESSORS + (
+    'django.core.context_processors.request',
+)
 
 LOGGING = {
     'version': 1,
@@ -264,3 +269,16 @@ LOGGING = {
         'propagate': True
     },
 }
+
+SOCIAL_AUTH_PIPELINE = (
+    'social.pipeline.social_auth.social_details',
+    'introductions.pipeline.save_mailbox',
+    'social.pipeline.social_auth.social_uid',
+    'social.pipeline.social_auth.auth_allowed',
+    'social.pipeline.social_auth.social_user',
+    'social.pipeline.user.get_username',
+    'social.pipeline.user.create_user',
+    'social.pipeline.social_auth.associate_user',
+    'social.pipeline.social_auth.load_extra_data',
+    'social.pipeline.user.user_details'
+)
