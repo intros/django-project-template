@@ -1,0 +1,15 @@
+{
+    "name": "{{ project_name }} email introduction tracker",
+    "description": "An email bot and website for tracking email introductions from http://intros.to",
+    "logo": "https://s3.amazonaws.com/static_intros/eagle/images/ico-globe.png",
+    "keywords": ["django", "email", "productivity", "introductions"],
+    // You'll need to add your own public github repository here
+    "repository": "",
+    "website": "http://www.intros.to",
+    "success_url": "/admin/setup/",
+    "addons": ["heroku-postgresql:hobby-dev",]
+    "scripts": {
+        "postdeploy": "python {{ project_name }}/manage.py createdb"
+    }
+
+}
