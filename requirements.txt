@@ -15,7 +15,9 @@ django-zurb-foundation
 email_reply_parser
 gunicorn
 markdown
-mysql-python
+# For dev we can use SQLLite.  Uncomment the one you really want for production
+#mysql-python
+#psycopg2
 python-social-auth
 pyzmail
 sphinx
