@@ -1,8 +1,8 @@
 import random
 import string
 
+from django.conf import settings
 from django.db import models
-from django.contrib.auth import get_user_model
 from django.dispatch import receiver
 
 from django_mailbox.models import Message
@@ -27,7 +27,7 @@ def gen_short_id():
     return output
 
 class Person(models.Model):
-    user = models.OneToOneField(get_user_model(), null=True, blank=True)
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, null=True, blank=True)
     preferred_email_address = models.EmailField(null=True, blank=True)
     created = models.DateTimeField(auto_now_add=True)
 
