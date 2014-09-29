@@ -13,6 +13,27 @@ from introductions.models import ( Introduction,
     PersonEmail
 )
 
+from django_mailbox.models import (
+    Mailbox,
+)
+
+class MailboxListView(ListView):
+    model = Mailbox
+    template_name = "introductions/mailbox_list.html"
+    paginate_by = 2
+
+class MailboxDetailView(DetailView):
+    model = Mailbox
+    template_name = "introductions/mailbox_detail.html"
+
+class MailboxUpdateView(UpdateView):
+    model = Mailbox
+    template_name = "introductions/mailbox_form.html"
+
+class MailboxCreateView(CreateView):
+    model = Mailbox
+    template_name = "introductions/mailbox_form.html"
+
 class PersonListView(ListView):
     model = Person
 
