@@ -1,5 +1,5 @@
 #!/bin/bash
-echo "I am provisioning..."
+echo "I am setting things up within Vagrant..."
 apt-get update
 echo "Installing postgres and mysql because you might have a different preference than I do"
 debconf-set-selections <<< 'mysql-server-5.5 mysql-server/root_password password password'
@@ -8,9 +8,5 @@ apt-get install -y libmysqlclient-dev mysql-server-5.5 postgresql python-dev pyt
 mysqladmin -u root --password=password create {{ project_name }}
 mysql -u root --password=password -e "GRANT ALL ON {{ project_name }}.* TO '{{ project_name }}'@'localhost' IDENTIFIED BY '{{ project_name }}';"
 cd /vagrant
-mkdir -p data/logs
-pip install -r requirements.txt
-python manage.py syncdb --noinput
-python manage.py migrate
-python manage.py collectstatic --noinput
+./provision.sh
 date > /etc/vagrant_provisioned_at
