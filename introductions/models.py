@@ -18,7 +18,6 @@ from .custom_fields import NullableCharField
 from .email_helpers import  get_delivered_to_addr, get_from_addr, get_to_addrs, get_all_recipients, is_fwd
 
 
-User = get_user_model()
 
 def gen_short_id():
     length=8
@@ -28,7 +27,7 @@ def gen_short_id():
     return output
 
 class Person(models.Model):
-    user = models.OneToOneField(User, null=True, blank=True)
+    user = models.OneToOneField(get_user_model(), null=True, blank=True)
     preferred_email_address = models.EmailField(null=True, blank=True)
     created = models.DateTimeField(auto_now_add=True)
 
