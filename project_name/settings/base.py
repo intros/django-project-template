@@ -149,6 +149,7 @@ INSTALLED_APPS = (
     'debug_toolbar',
     'django_mailbox',
     'django_ses',
+    'djcelery',
     'djfrontend',
     'djfrontend.skeleton',
     'foundation',
@@ -165,6 +166,9 @@ INSTALLED_APPS = (
     # 'django.contrib.admindocs',
 
 )
+
+#CELERY_RESULT_BACKEND='djcelery.backends.database:DatabaseBackend'
+CELERY_RESULT_BACKEND='djcelery.backends.cache:CacheBackend'
 
 AUTHENTICATION_BACKENDS = ( 'social.backends.google.GoogleOAuth2',
     'social.backends.twitter.TwitterOAuth',
