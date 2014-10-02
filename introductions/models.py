@@ -38,7 +38,7 @@ class Person(models.Model):
 
 
 class PersonEmail(models.Model):
-    person = models.ForeignKey(Person)
+    person = models.ForeignKey(Person, null=True)
     email_address = models.EmailField(unique=True)
     first_name = models.CharField(max_length=128, null=True, blank=True)
     last_name = models.CharField(max_length=128, null=True, blank=True)
@@ -73,7 +73,6 @@ class TaggedIntroduction(TaggedItemBase):
 
 
 class Introduction(models.Model):
-    email_alias = models.SlugField(max_length=16, unique=True, default=gen_short_id)
     person = models.ForeignKey(Person)
     created = models.DateTimeField(auto_now_add=True)
     from_addr = models.EmailField(verbose_name="Who made this intro? (your email or another person's if this was an intro you received)", null=True, blank=True)
@@ -126,6 +125,15 @@ class IntroductionReminder(models.Model):
     def __unicode__(self):
         return "Introduction reminder by %s scheduled for %s" % (self.person, self.requested)
 
+class ShortCode(models.Model):
+    alias = models.SlugField(max_length=16, unique=True, default=gen_short_id)
+    content_type =  models.ForeignKey(ContentType)
+    object_id = models.PositiveIntegerField()
+    content_object = GenericForeignKey('content_type', 'object_id')
+    
+    def __unicode__(self):
+        return self.alias
+
 
 def process_message_as_follow_up(message):
     # this is a little tricky.  Any message that can be dealt with as a
@@ -154,14 +162,33 @@ def process_message_as_follow_up(message):
     try:
         email_alias=delivered_to.split("@")[0].split("+")[1]
     except IndexError:
-        raise Introduction.DoesNotExist("%s does not appear to represent an existing introduction. Message: %s" % (delivered_to, message.pk))
-    # This will raise a DoesNotExist message
-    intro = Introduction.objects.get(email_alias=email_alias)
+        #try to find from references
+        for reference in references:
+            messages = Message.objects.filter(message_id__in=[r.strip() for r in reference.split('\n')])
+            if messages.count() == 0:
+                continue
+            #get the introduction based on  messages, should be only 1
+            intro = Introduction.objects.get(mailbox_message__in=messages)
+            if intro:
+                break
+            
+    
+    if not intro:
+        # This will raise a DoesNotExist message
+        shortcode = ShortCode.objects.get(alias=email_alias)
+        if isinstance(shortcode, Introduction):
+            intro = shortcode 
+        else:
+            raise Introduction.DoesNotExist("%s does not appear to represent an existing introduction. Message: %s" % (delivered_to, message.pk))
     # If the sender is the user that owns the intro, add it as a comment
-    person = PersonEmail.objects.get(msg.get("from").lower().lstrip().rstrip()).person
-    if person == intro.person:
+    person = None
+    try:
+        person = PersonEmail.objects.get(email_address=get_from_addr(msg))
+    except Exception, e:
+        pass
+    if person.person == intro.person:
         new_comment = IntroductionComment(
-            person = person,
+            person = person.person,
             introduction = intro,
             comment = EmailReplyParser.parse_reply(message.text)
         )
@@ -178,6 +205,9 @@ def process_message_as_new_intro(message):
         person = PersonEmail.objects.get(email_address=from_addr).person
     except PersonEmail.DoesNotExist:
         raise Introduction.DoesNotExist("from address: %s doesn't represent a person in our system.  Message: %s" % (from_addr, message.pk))
+    if not person:
+        return
+        
     intro = Introduction(person=person,
                         from_addr=from_addr,
                         delivered_to = delivered_to,
@@ -187,13 +217,18 @@ def process_message_as_new_intro(message):
                         message = message.text,
                         mailbox_message = message
                         )
+    intro.save()
+    
+    #save the shortcode
+    shortcode = ShortCode(content_object=intro)
+    shortcode.save()
     for name, addr in get_all_recipients(msg):
         if name != '':
-            person_email = PersonEmail.objects.get_or_create(
+            person_email, created = PersonEmail.objects.get_or_create(
                 email_address=addr.lower().lstrip().rstrip(),
             )
         else:
-            person_email = PersonEmail.objects.get_or_create(
+            person_email, created = PersonEmail.objects.get_or_create(
                 email_address=addr.lower().lstrip().rstrip(),
                 extracted_name=name
             )
@@ -209,4 +244,8 @@ def process_message(sender, message, **args):
         print "Processed an introduction followup from %s on intro: %s" % (message.from_header, intro.pk)
     except Introduction.DoesNotExist:
         intro = process_message_as_new_intro(message)
-        print "Created an introduction from %s on intro: %s" % (message.from_header, intro.pk)
+        if intro:
+            print "Created an introduction from %s on intro: %s" % (message.from_header, intro.pk)
+        else:
+            print  "Ignore introduction"
+s
