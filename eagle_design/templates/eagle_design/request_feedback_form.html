@@ -1,0 +1,51 @@
+{% extends 'eagle_design/base.html' %}
+{% load email_address_tags %}
+{% block title %}Follow Up{% endblock %}
+{% block header-content %}
+<header>
+    <h1 class=subheader>Follow up on <a href="{% url "eagle_introduction_user_detail" object.sequence %}">intro #{{ object.sequence }}</a></h1>
+</header>
+{% endblock %}
+{% block left-content %}
+    <article class="introduction-detail-item" data-introducion-id="{{ object.pk }}">
+        <br />
+    <header>
+        <div class="avatars">
+            {% for introducee in object.introducees.with_emails %}
+            <a href="{% url "eagle_dashboard_user" introducee.email_address %}"><img src="{{ introducee.email_address|gravatar:40 }}" class="avatar-tiny"></a>
+            {% endfor %}
+        </div>
+        <div class="content">
+            <h3>{{ object.subject }}</h3>
+            {% if object.received %}
+            <p>Now is a good time to follow up on the intro you received from <a href="{% url "eagle_introduction_user_detail" object.sequence %}">{{ object.from_addr|fullname }}</a> {{ object.date|timesince }} ago connecting you with {{ object.printable_introducee_list }}.
+            {% elif object.made %}
+            <p>It's time to see how things are going after the intro you made between <a href="{% url "eagle_introduction_user_detail" object.sequence %}">{{ object.printable_introducee_list }}</a> that you made {{ object.date|timesince }} ago.
+            {% else %}
+            <p>It's time to see how things are going after the intro between <a href="{% url "eagle_introduction_user_detail" object.sequence %}">{{ object.printable_introducee_list }}</a> that you made {{ object.date|timesince }} ago.
+            {% endif %}
+        </div>
+        <div class="actions"> <br /><br />
+        </div>
+    </header>
+        <br />
+    </article>
+    {% if object.made %}
+<form method=POST>
+{% csrf_token %}
+<div class="row">
+            <div class="small-4 columns">
+                {{ form.introducees }}
+            </div>
+            <div class="small-8 columns">
+                {{ form.custom_message }}
+                <p> We'll include a personalized, private link for each person and invite them to join intros as well.</p>
+            </div>
+</div>
+<p class="right"><input class="button medium radius" value="Ask how it went" type="submit"/></p>
+</form>
+{% else %}
+<h6>Why don't you drop {{object.from_addr|fullname}} a line?</h6>
+<p>Thanking people who make great connections for you, as well as being fun and the right thing to do, is one of the best ways to ensure you receive more great connections.</p>
+{% endif %}
+{% endblock %}

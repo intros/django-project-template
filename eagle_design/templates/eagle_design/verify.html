@@ -1,0 +1,19 @@
+{% extends 'eagle_design/base.html' %}
+
+{% block title %}Verified!{% endblock %}
+
+{% block header-content %}
+<h1>Verified!</h1>
+<h2 class="subheader">You can start using {{ object.email_address }} now!</h2>
+{% endblock %}
+
+{% block left-content %}
+<br />
+    <div class="small-7 columns small-centered">
+        <div class="panel white-bg">
+            <p>Thanks for adding {{ object.email_address }} to the list of emails you can use to record introductions.</p>
+            <p>Simply BCC <a href="mailto:my@intros.to">my@intros.to</a> whenever you make an introduction and we'll do the rest.</p>
+            <a href="/verify" class="button medium">Verify Another</a>
+            </div>
+    </div>
+{% endblock %}

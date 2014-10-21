@@ -1,0 +1,16 @@
+{% extends 'eagle_design/base.html' %}
+{% block title %}Share Intros with your friends!{% endblock %}
+{% block header-content %}
+    <div class="row">
+        <h1>Thanks!</h1>
+        <h1 class="subheader">Your invitation has been sent!</h1>
+    </div>
+{% endblock %}
+{% block left-content %}
+<br />
+<h3><a href="{% url 'eagle_invite' %}">Did you forget anyone?</a></h3>
+<h3 class="subheader">Help more people make and receive great intros</h3>
+<br />
+<a class="button medium" href="{% url 'eagle_invite' %}">Invite more</a>
+<br />
+{% endblock %}

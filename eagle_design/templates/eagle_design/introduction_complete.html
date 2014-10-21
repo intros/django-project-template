@@ -1,0 +1,13 @@
+{% extends 'eagle_design/base.html' %}
+{% block title %}Share Intros with your friends!{% endblock %}
+{% block header-content %}
+    <div class="row">
+        <h1 class="subheader">Thanks! Your invitation has been sent!</h1>
+    </div>
+{% endblock %}
+{% block left-content %}
+<br />
+<div class="small-9 columns small-centered">
+    <h1><a href="{% url 'eagle_invite' %}">Invite more connectors?</a></h1>
+</div>
+{% endblock %}

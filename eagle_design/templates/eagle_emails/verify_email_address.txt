@@ -1,0 +1,9 @@
+{% if user.first_name %}{{ user.first_name }},{% else %}Hi!{% endif %}
+
+Please go to https://{{ site.domain }}/verify/{{ anon_hash }} to confirm your new email address.
+
+Then simply bcc my@intros.to the next time you make an introduction from this email or any other email address linked to your Intros account.
+
+Thanks,
+
+The Intros Team

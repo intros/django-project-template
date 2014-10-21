@@ -1,0 +1,9 @@
+{{ custom_message|safe }}
+
+You can simply reply to this e-mail with your response.
+
+{% if invitation %}
+Here's your personal invite to Intros, if you'd like to track the intros you make and receive: {{ invitation.shareable_url }}
+{% else %}
+Are you a connector? Follow your introductions by requesting an invitation at https://intros.to.
+{% endif %}

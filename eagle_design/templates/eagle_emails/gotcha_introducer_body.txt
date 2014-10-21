@@ -1,0 +1,24 @@
+{% load humanize %}
+{% autoescape off %}
+{% if introduction.connector.first_name %}{{ introduction.connector.first_name }},{% endif %}
+
+We’ve captured your intro: “{{ introduction.subject|safe }}”, connecting {{ introduction.printable_introducee_list|safe }}.
+
+To make a note to yourself about this intro - e.g. the context for making it, or what you'd like happen - just reply to this email.
+
+Thanks,
+
+The Intros Team
+
+Your intro in context:
+=====================
+{% for introducee in introducee_stats %}
+- {{ introducee.1|ordinal }} intro made for {{ introducee.0 }}{% if introducee.2 %}, of {{ introducee.1 }} made and {{ introducee.2 }} received {% endif %}.
+{% endfor %}
+
+- You’ve now recorded {{ total_introductions.by_me|add:total_introductions.for_me }} intros in total ({{ total_introductions.by_me }} made, {{ total_introductions.for_me }} received)
+
+=====================
+
+To change how and when we notify you, visit your settings (https://intros.to/my/settings).
+{% endautoescape %}

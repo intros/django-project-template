@@ -1,0 +1,33 @@
+{% extends "eagle_design/base_dashboard.html" %}
+{% load email_address_tags %}
+
+{% block title %}{{ page_obj.paginator.count }} intros with {{ introducee|fullname }}{% endblock %}
+
+{% block header-content %}
+<h1>Intros history with {{ introducee|fullname }}</h1>
+{% endblock %}
+
+
+{% block left-content %}
+
+<h4>{{ object_list|length }} intros</h4>
+<section class="recent-intros-feedback">
+    {% for object in object_list %}
+    {% include "eagle_design/partials/dash_introduction_item.html" %}
+    {% endfor %}
+</section>
+<div class="row">
+    <div class="large-6 columns">
+        {% if page_obj.has_previous %}
+        <h4><a href="{% url "eagle_dashboard" %}?page={{ page_obj.previous_page_number }}"> &lt; previous {{ object_list.count }} Intros</a></h4>
+        {% endif %}
+    </div>
+    <div class="large-6 columns">
+        {% if page_obj.has_next %}
+        <h4><a href="{% url "eagle_dashboard" %}?page={{ page_obj.next_page_number }}"> next {{ object_list.count }} Intros &gt; </a></h4>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
+{% block who-you-introduce %}
+{% endblock %}

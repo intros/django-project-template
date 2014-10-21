@@ -1,0 +1,104 @@
+{% extends "eagle_design/base.html" %}
+{% load static from staticfiles %}
+{% load email_address_tags %}
+{% load humanize %}
+{% block title %}Intro #{{ object.sequence }} - {{ object.subject }}{% endblock %}
+
+{% block header-content %}
+<header>
+    <h1 class=subheader><a href="{% url "eagle_introduction_user_detail" object.sequence %}">Intro #{{ object.sequence }}</a></h1>
+</header>
+{% endblock %}
+
+{% block left-content %}
+    <br />
+    <article class="introduction-detail-item" data-introducion-id="{{ object.pk }}">
+    <header>
+        <div class="avatars">
+            {% for introducee in object.introducees.with_emails %}
+            <a href="{% url "eagle_dashboard_user" introducee.email_address %}"><img src="{{ introducee.email_address|gravatar:40 }}" class="avatar-tiny"></a>
+            {% endfor %}
+        </div>
+        <div class="content">
+            <h3>{{ object.subject }}</h3>
+            <p>Between 
+        {% for introducee in object.introducees.with_emails %}
+        <a href="{% url "eagle_dashboard_user" introducee.email_address %}">{{ introducee.email_address|fullname }}{% if not forloop.last %}, {% endif %}
+        {% endfor %} 
+        <a href='#' data-introduction-sequence='{{ object.sequence }}' class="addintroducee">{% if object.introducees.with_emails %} ...anyone else?{% else %}Add Introducees{% endif %}</a>
+        </p>
+        </div>
+        <div class="actions">
+            <br /><br />
+            {% if not object.followup_set.requested %}<a class="small secondary button" href="{% url "eagle_introduction_request_feedback" object.sequence %}">follow up</a>{% endif %}
+        </div>
+    </header>
+    <br />
+    <div class="body">
+          <p class="date">{{ object.date|date }}</p>
+          <textarea disabled>{{object.message}}</textarea>
+      </div>
+    </article>
+{% endblock %}
+
+{% block right-content %}
+<h3>Intro timeline</h3>
+<section class="timeline">
+    <p>{{ object.date|date }} - Intro made</p>
+    <p>{{ object.created|date }} - Intro registered</p>
+    {% if object.followup_set.requested %}
+        {% for followup in object.followup_set.requested %}
+        <p>{{ followup.requested|date }} - Contacted {{ followup.email|fullname }} for follow up.</p>
+        {% endfor %}
+    {% else %}
+    <p>{% now "DATE_FORMAT" %} - <a href="{% url "eagle_introduction_request_feedback" object.sequence %}">Click here to follow up</a><p>
+    {% endif %}
+    {% for followup in object.followup_set.commented %}
+    <p>{{ followup.added|date }} - {{ followup.email|fullname }} left feedback.</p>
+    {% endfor %}
+</section>
+{% if object.followup_set.commented %}
+<h3>Follow Up</h3>
+<section>
+    {% for followup in  object.followup_set.commented %}
+            <h4 class="type">{{ followup.email|fullname }} left feedback</h4>
+            <p class="date">{{ followup.added|date }}</p>
+            <div class="row">
+            <div class="avatar"><img src="{% static "images/icon-person.png" %}" alt=""></div>
+            <div class="body">
+              <div class="message">
+                  <p>{{ followup.email|fullname }}</p>
+                  <hr />
+                  {{followup.comment|linebreaks}}
+  {% endfor %}
+</section>
+{% endif %}
+<br />
+<h3>Your notes on this intro</h3>
+<section class="leave-note">
+{% if object.introductioncomment_set.all %}
+    {% for comment in object.introductioncomment_set.all %}
+    <p>{{ comment.created|date }} - {{ comment.message|linebreaksbr }}</p>
+    {% endfor %}
+{% else %}
+{% endif %}
+<div class="note-item">
+    <div class="note-content">
+        <form class="custom" method=POST action={% url "introduction_comment_create_view"  slug=object.pk %}>
+        {% csrf_token %}
+        <textarea id="comment" name="message" placeholder="They've met for coffee! or Video Conference on the 14th"></textarea>
+
+        <input type=submit value="Add Note" class="small secondary button right" />
+        </form>
+    </div>
+</div>
+</section>
+{% endblock %}
+
+{% block page-js %}
+  <script src="//s3.amazonaws.com/static_intros/eagle/javascripts/eagle/introduction_detail.js"></script>
+{% endblock %}
+
+{% block modals %}
+{% include 'partials/add_introducee_modal.html' %}
+{% endblock %}

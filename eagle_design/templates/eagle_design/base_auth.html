@@ -1,0 +1,37 @@
+ {% extends 'eagle_design/base_base.html' %}
+
+{% block mybody %}
+<body class="{% block bodyclass %}{% endblock %}">
+    <div class="fixed">
+        {% include "eagle_design/partials/top_bar.html" %}
+    </div>
+
+    <section class="content">
+        <section class="header-content">
+        {% block header-content %}
+        {% endblock %}
+        </section>
+
+        <div class="content-body">
+            <div class="content-body-left">
+                {% block left-content %}
+                {% endblock %}
+            </div>
+
+            <div class="content-body-right">
+            {% block right-content %}
+            {% endblock %}
+            </div>
+    </section>
+  <script src="//d18rm8cl8msm70.cloudfront.net/eagle/javascripts/min/foundation.min.08c4f95f1.js"></script>
+  <script>
+    $(document).foundation();
+  </script>
+
+  {% block page-js %}
+  {% endblock %}
+  {% block modals %}
+  {% endblock %}
+
+</body>
+{% endblock %}

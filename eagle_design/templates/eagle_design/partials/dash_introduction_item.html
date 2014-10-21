@@ -1,0 +1,19 @@
+{% load email_address_tags %}
+    <div class="feedback-item{% if object.made %} made{% else %} received{% endif %}">
+        <div class="avatars">
+            {% if object.received %}
+            {% if object.from_addr %}<a href="{% url "eagle_dashboard_user" object.from_addr %}"><img src="{{ object.from_addr|gravatar:40 }}" class="avatar-tiny"></a>{% endif %}
+            {% endif %}
+            {% for introducee in object.introducees.with_emails %}
+            <a href="{% url "eagle_dashboard_user" introducee.email_address %}"><img src="{{ introducee.email_address|gravatar:40 }}" class="avatar-tiny"></a>
+            {% endfor %}
+        </div>
+        <div class="feedback-content">
+            {% if object.made %}
+            <h3>#{{ object.sequence }} You introduced {{ object.printable_introducee_list }}</h3>
+            {% else %}
+            <h3>#{{ object.sequence }} {{ object.from_addr|fullname }} introduced you to {{ object.printable_introducee_list }}</h3>
+            {% endif %}
+            <p>{{ object.message|truncatewords:18 }}<br \><a href="{% url "eagle_introduction_user_detail" object.sequence %}">See More</a></p>
+        </div>
+    </div>

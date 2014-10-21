@@ -1,0 +1,42 @@
+{% extends "eagle_design/base_dashboard.html" %}
+{% load email_address_tags %}
+
+
+{% block header-content %}
+    <h1>Your {{ page_obj.paginator.count }} intros in context</h1>
+    <h2 class="subheader">Simply bcc or forward intros made or received to my@intros.to</h2>
+{% endblock %}
+
+{% block left-content %}
+{% if page_obj.number == 1 %}
+{% if next_actions %}
+<h4>Follow up</h4>
+<section class="actions">
+
+{% for object in next_actions|slice:":4" %}
+{% include "eagle_design/partials/dash_action_item.html" %}
+{% endfor %}
+
+</section>
+{% endif %}
+{% endif %}
+<h4>{% if page_obj.number == 1 %}Recent {% else %}Your {% endif %} intros <a href="{% url 'eagle_add_intro' %}"><button class="small round">+ Add an Intro</button></a></h4>
+<section class="recent-intros-feedback">
+    {% for object in object_list %}
+    {% include "eagle_design/partials/dash_introduction_item.html" %}
+    {% endfor %}
+</section>
+<div class="row">
+    <div class="large-6 columns">
+        {% if page_obj.has_previous %}
+        <h4><a href="{% url "eagle_dashboard" %}?page={{ page_obj.previous_page_number }}"> &lt; Previous {{ object_list.count }} intros</a></h4>
+        {% endif %}
+    </div>
+    <div class="large-6 columns">
+        {% if page_obj.has_next %}
+        <h4><a href="{% url "eagle_dashboard" %}?page={{ page_obj.next_page_number }}"> Next {{ object_list.count }} intros &gt; </a></h4>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
+

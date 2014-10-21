@@ -1,0 +1,47 @@
+                        {% include 'emails/_hr_rule.html' %}
+
+
+<!-- START OF FULL WIDTH -->   
+<table width="630" border="0" cellspacing="0" cellpadding="0" align="center"  >
+    <tr>
+        <td height="15" bgcolor="#F9F9F9"></td>
+    </tr>
+    <tr>
+        <td valign="top" align="left" width="630" style="font-family: Helvetica, Arial, sans-serif; color: #3083A7; font-size: 18px; font-weight: 200; text-align:left; vertical-align:top;" class="heading1" >{{ intro.created|date:"l, d F"}}</td>
+    </tr>
+    <tr>
+        <td valign="top" align="left" width="630" style="font-family: Helvetica, Arial, sans-serif; color: #3083A7; font-size: 18px; font-weight: 200; text-align:left; vertical-align:top;" class="heading1" >{{ introducees|join:", "}}</td>
+    </tr>
+    <tr>
+        <td valign="top" align="left" width="630" style="font-family: Helvetica, Arial, sans-serif; color: #3083A7; font-size: 18px; font-weight: 200; text-align:left; vertical-align:top;" class="heading1" >{{ intro.subject }}</td>
+    </tr>
+    <tr>
+        <td height="10" bgcolor="#F9F9F9"></td>
+    </tr>
+    <tr>
+        <td width="630" valign="top" align="left" style="font-family: Helvetica, Arial, sans-serif; font-size: 14px; color: #808080; line-height: 24px; font-weight: 200; text-align:left; vertical-align:top;" class="textIndent" >
+          <p> {{ intro.message|truncatewords:20 }} </p>
+          {% if intro.feedback_commented %}
+            {% for feedback in intro.followup_set.commented %}
+            <p style="font-family: Helvetica, Arial, sans-serif; font-weight: 200; font-size: 14px; color: #808080; line-height: 24px; text-align:left; vertical-align:top;">{{ feedback.email }} was <span style='color:#15c;font-weight:300;'>{{ feedback.excitement_level }}</span> on {{ feedback.added|date:"l, j F"}}{% if feedback.has_helped_with %} and the introduction helped with <span style='color:#15c;font-weight:300;'>{{ feedback.has_helped_with }}</span>{% endif %}.</p>
+            {% endfor %}
+          {% else %}
+            {% if intro.feedback_requested %}
+            <p style="font-family: Helvetica, Arial, sans-serif; font-weight: 300; font-size: 14px; color: #808080; line-height: 24px; text-align:left; vertical-align:top;">Awaiting feedback</p>
+            {% else %}
+            <p style="font-family: Helvetica, Arial, sans-serif; font-weight: 300; font-size: 14px; color: #808080; line-height: 24px; text-align:left; vertical-align:top;">You haven't requested feedback on this intro yet. <a href="https://intros.to/{% url "introduction_request_feedback" slug=intro.sequence %}" style='color:#15c;'>Request Feedback?</a></p>
+            {% endif %}
+          {% endif %}
+    </tr>
+    <tr>
+        <td height="15" bgcolor="#F9F9F9"></td>
+    </tr>
+    <tr>
+        <td width="300" align="left"><a style="text-decoration: none;" target="_blank" href="https://intros.to/{{ intro.get_user_url }}"><img src="https://s3.amazonaws.com/static_introductiones/email_images/button_blue.gif" alt="Read More" width="150" height="40" border="0" class="button" style="display:block;" ></a></td>
+    </tr>
+    <tr>
+        <td height="15" bgcolor="#F9F9F9"></td>
+    </tr>
+</table>
+<!-- END OF FULL WIDTH -->
+

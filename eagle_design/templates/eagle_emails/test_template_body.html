@@ -1,0 +1,635 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta content="width=device-width; initial-scale=1.0; maximum-scale=1.0;" name="viewport" />
+<title>Responsive HTML Email Framework</title>
+
+
+<style type="text/css">
+<!--
+body {
+   background-color: #343739;
+   margin: 0;
+   padding: 0;
+}
+a {
+    color:#f07057;
+    text-decoration:none;
+}
+a:hover {
+    color:#f07057;
+    text-decoration:underline;
+}
+img {
+    border: none;
+    display: block;
+    }
+.imageScale1        {margin-right: 15px; margin-bottom: 0px; }
+.imageScale1_last   {
+    margin-right: 0px;
+    margin-bottom: 0px;
+    text-align: right;
+}
+
+.imageScale2        {margin-right: 0px; margin-bottom: 0px; }
+.imageScale2_last   {margin-right: 0px; margin-bottom: 0px; }
+.noBlock img        {display: inline-block; }
+-->
+
+@media only screen and (min-width: 768px) 
+            {
+        .emailWrapper {width:100%!important; }
+        .mobileCenter {width: 100%!important; }
+        .contentWrapper {width:100%!important; }
+            }
+
+
+@media only screen and (max-width: 640px) 
+           {
+         body                           {width:100%!important;}
+         table table                    {width:500px!important; }
+        .emailWrapper                   {width:500px!important; }
+        .contentWrapper                 {width:480px!important; }
+        .fullWidth                      {width:480px!important; }
+        .messageWrapper                 {width:480px!important; }
+        .headerScale                    {width:480px!important; }
+        .splashScale                    {width: 480px!important; height: 267px!important; margin-left: 0px !important; }
+        .mobileCenter                   {width: 480px!important; }
+        .mobileCenter2                  {text-align: center!important;}
+        .socialCenter                   {width: 170px !important; text-align: center !important; margin-left: auto!important; margin-right: auto!important; }
+        .imageScale1                    {width: 480px!important; height: 274px!important; margin-right: 0px!important; margin-bottom: 20px!important; margin-left: 0px !important; }
+        .imageScale1_last               {width: 480px!important; height: 274px!important; margin-right: 0px!important; margin-bottom: 20px!important; margin-left: 0px !important; }
+        .imageScale2                    {width: 480px!important; height: 274px!important; margin-right: 0px!important; margin-bottom: 20px!important; margin-left: 10px !important; }
+        .imageScale2_last               {width: 480px!important; height: 274px!important; margin-left: 10px!important; margin-bottom: 20px!important; margin-right: 10px !important; }
+        .heading1                       {font-size: 24px !important; font-weight: 200!important; padding: 0px 0 0px 10px !important; }
+        .heading2                       {font-size: 20px !important; font-weight: 200!important; }
+        .mobileRemove                   {width: 0px !important; display: none !important; height: 0px !important; }
+        .hr                             {display: none !important; }
+        .button                         {padding: 0 0 10px 10px !important; }
+        .textIndent                     {font-size: 16px !important; line-height: 24px !important; font-weight: 200!important; padding: 0px 10px 20px 10px !important; }
+        .textIndent2                        {font-size: 18px !important; text-align: center !important; line-height: 20px !important; font-weight: 400!important; padding: 0px 10px 20px 10px !important; }
+        body {-webkit-text-size-adjust: none;}
+        }
+        
+        
+@media only screen and (max-width: 320px) 
+           {
+         body                           {width:100%!important;}
+         table table                    {width:280px!important; }
+        .emailWrapper                   {width: 280px!important; }
+        .contentWrapper                 {width: 260px!important; }
+        .fullWidth                      {width: 260px!important; }
+        .messageWrapper                 {width: 260px!important; }
+        .splashScale                    {width: 260px!important; height: 153px!important; }
+        .headerScale                    {width: 260px!important; }
+        .mobileCenter                   {width: 260px!important; }
+        .imageScale1                    {width: 260px!important; height: 153px!important;  margin-right: 0px!important; margin-bottom: 20px!important; }
+        .imageScale1_last               {width: 260px!important; height: 153px!important; margin-bottom: 20px!important; margin-right: 0px !important; }
+        .imageScale2                    {width: 260px!important; height: 153px!important;  margin-right: 0px!important; margin-bottom: 20px!important; margin-left: 10px !important; }
+        .imageScale2_last               {width: 260px!important; height: 153px!important; margin-bottom: 20px!important; margin-right: 10px !important; }
+        .mobileRemove                   {width: 0px !important; display: none !important;}
+        .heading1                       {font-size: 20px !important; font-weight: 200!important; padding: 0px 0 0px 10px !important; }
+        .textIndent                     {font-size: 14px !important; line-height: 20px !important; font-weight: 200!important; padding: 0px 10px 20px 10px !important; }
+        .textIndent2                        {font-size: 13px !important; text-align: center !important; line-height: 20px !important; font-weight: 400!important; padding: 0px 10px 20px 10px !important; }
+        body {-webkit-text-size-adjust: none;}
+           }
+           
+</style>
+
+</head>
+<body leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+
+<!-- START OF PAGE WRAPPER -->
+<table width="100%" border="0" align="center" cellpadding="0" cellspacing="0" bgcolor="#343739">
+  <tr>
+    <td valign="top">
+    
+       
+      <!-- START OF EMAIL WRAPPER -->
+      <table width="650" border="0" align="center" cellpadding="0" cellspacing="0" class="emailWrapper" bgcolor="#F9F9F9">
+        <tr>
+          <td bgcolor="#F9F9F9" >
+          
+            <!-- START OF CONTENT WRAPPER -->
+            <table width="630" border="0" align="center" cellpadding="0" cellspacing="0" class="contentWrapper" bgcolor="#F9F9F9">
+                <tr>
+                    <td bgcolor="#F9F9F9" >
+                    
+                    
+                    
+                        <!-- START OF VIEW ONLINE WRAPPER -->  
+                        <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center"  bgcolor="#42484D">
+                            <tr>
+                                <td valign="top" align="center" bgcolor="#42484D" >
+                            
+                                <!-- START OF VIEW ONLINE -->
+                                <table width="630" align="center" border="0" cellspacing="0" cellpadding="0" bgcolor="#42484D" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;">
+                                    <tr>
+                                        <td valign="top" align="center" bgcolor="#42484D" style="font-family: Helvetica, Arial, sans-serif; font-size: 11px; color: #868A8D; padding: 20px 0 20px 0; line-height: 20px; font-weight: 200; text-align:center; vertical-align:top;" >Problems viewing? <a href="#" style="color: #ffffff;">Click to view online</a></td>
+                                </tr>
+                                </table>
+                                <!-- END OF VIEW ONLINE -->
+                          </tr>
+                          <tr>
+                        </table>
+                        <!-- END OF VIEW ONLINE WRAPPER -->
+          
+          
+            
+                        <!-- START OF HEADER -->
+                        <table width="630" align="center" height="93" border="0" cellspacing="0" cellpadding="0" bgcolor="#F9F9F9" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;">
+                          <tr>
+                            <td height="93" align="left" valign="top" width="630" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;" bgcolor="#F9F9F9">
+                                
+                                
+                                <!-- START LOGO -->
+                                <table border="0" cellspacing="0" cellpadding="0" align="left" width="458" class="mobileCenter2" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;" bgcolor="#F9F9F9" >
+                                  <tr>
+                                    <td class="noBlock" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;" bgcolor="#F9F9F9" border="0" ><a href="#"><img src="img/top_logo.gif" alt="your logo text here" width="215" height="93" /></a></td>
+                                  </tr>
+                                </table><!-- END LOGO -->
+            
+            
+                                <!-- START SOCIAL -->
+                                <table border="0" cellspacing="0" cellpadding="0" width="170" class="socialCenter" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;" bgcolor="#F9F9F9" >
+                                    <tr>
+                                        <td height="30" colspan="5" class="mobileRemove" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;" bgcolor="#F9F9F9" ></td>
+                                    </tr>
+                                    <tr>
+                                          <td width="35" height="30" align="left" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;" bgcolor="#F9F9F9" ><a href="#"><img src="img/twitter.gif" alt="Twitter" width="30" height="30" border="0" /></a></td>
+                                            
+                                          <td width="35" height="30" align="left" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;" bgcolor="#F9F9F9" ><a href="#"><img src="img/linkedin.gif" alt="LinkedIn" width="30" height="30" border="0" /></a></td>
+                                            
+                                          <td width="35" height="30" align="left" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;" bgcolor="#F9F9F9" ><a href="#"><img src="img/gplus.gif" alt="Google Plus" width="30" height="30" border="0" /></a></td>
+                                            
+                                          <td width="35" height="30" align="left" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;" bgcolor="#F9F9F9"  ><a href="#"><img src="img/facebook.gif" alt="Facebook" width="30" height="30" border="0" /></a></td>
+                                          
+                                          <td width="30" height="30" align="left" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;" bgcolor="#F9F9F9" ><a href="#"><img src="img/pinterest.gif" alt="Pinterest" width="30" height="30" border="0" /></a></td>
+                                          
+                                    </tr>
+                                    <tr>
+                                        <td height="20" colspan="5" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;" bgcolor="#F9F9F9" ></td>
+                                    </tr>
+                                </table><!-- END SOCIAL -->
+                                
+                                
+                            </td>
+                          </tr>
+                        </table>
+                        <!-- END OF HEADER -->
+            
+            
+            
+            
+                        <!-- START OF SPLASH IMAGE -->  
+                        <table width="630" border="0" cellspacing="0" cellpadding="0" align="center"  bgcolor="#5db9d9" class="mobileCenter"   >
+                          <tr>
+                            <td valign="top" align="center" bgcolor="#5db9d9" ><a href="#"><img src="img/header_image.jpg" class="splashScale" alt="header image" border="0" style="display:block; border:none; outline:none; text-decoration:none; text-align:center;"  width="630" height="350"></a></td>
+                          </tr>
+                        </table>
+                        <!-- END OF SPLASH IMAGE -->
+                         
+
+                         
+
+                        <!-- START SPACER -->
+                        <table width="630" border="0" cellpadding="0" cellspacing="0" class="hr" align="center"  bgcolor="#F9F9F9" >
+                          <tr>
+                            <td height="30" align="left" valign="middle"></td>
+                          </tr>
+                         </table>
+                         <!-- END SPACER -->
+
+                                                  
+                        <!-- START OF FULL WIDTH -->   
+                        <table width="630" border="0" cellspacing="0" cellpadding="0" align="center"  >
+                            <tr>
+                                <td height="15" bgcolor="#F9F9F9"></td>
+                            </tr>
+                            <tr>
+                                <td valign="top" align="center" width="630" style="font-family: Helvetica, Arial, sans-serif; color: #3083A7; font-size: 22px; font-weight: 200; text-align:center; vertical-align:top;" class="heading1" >Fully responsive and retina ready (HiDPI)</td>
+                            </tr>
+                            <tr>
+                                <td height="10" bgcolor="#F9F9F9"></td>
+                            </tr>
+                            <tr>
+                                <td width="630" valign="top" align="center" style="font-family: Helvetica, Arial, sans-serif; font-size: 14px; color: #808080; line-height: 24px; font-weight: 200; text-align:center; vertical-align:top;" class="textIndent" >Yes you read that correctly. We now support not just only a beautifully coded new responsive framework, but also have built-in retina (HiDPI) support without any scripts. <a href="#" style="color:#3083A7;">Is this the first responsive retina ready email template?</a></td>
+                            </tr>
+                            <tr>
+                                <td height="15" bgcolor="#F9F9F9"></td>
+                            </tr>
+                        </table>
+                        <!-- END OF FULL WIDTH -->
+                        
+                        
+                        
+                        <!-- START OF 3 COLUMN -->
+                        <table width="630" border="0" cellspacing="0" align="center" cellpadding="0" bgcolor="#F9F9F9">
+                            <tr>
+                                <td height="15" bgcolor="#F9F9F9"></td>
+                            </tr>
+                            <tr>
+                                <td bgcolor="#F9F9F9" >
+                            
+                                    <table width="213" border="0" cellspacing="0" cellpadding="0" align="left" bgcolor="#F9F9F9" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;" >
+                                        <tr>
+                                            <td align="left" bgcolor="#F9F9F9" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;" ><a target="_blank" href="#"><img width="200" height="110" border="0" style="display:block; border:none; outline:none; text-decoration:none;" alt="Image1" src="img/image2.jpg" class="imageScale2"></a></td>
+                                        </tr>
+                                    </table>
+                            
+                                    <table width="213" border="0" cellspacing="0" cellpadding="0" align="left" bgcolor="#F9F9F9" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;" >
+                                        <tr>
+                                            <td align="left" bgcolor="#F9F9F9" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;" ><a target="_blank" href="#"><img width="200" height="110" border="0" style="display:block; border:none; outline:none; text-decoration:none;" alt="Image2" src="img/image3.jpg" class="imageScale2"></a></td>
+                                        </tr>
+                                    </table>
+                            
+                                    <table width="200" border="0" cellspacing="0" cellpadding="0" bgcolor="#F9F9F9" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;" >
+                                        <tr>
+                                            <td align="right" bgcolor="#F9F9F9" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;" ><a target="_blank" href="#"><img width="200" height="110" border="0" style="display:block; border:none; outline:none; text-decoration:none;" alt="Image3" src="img/image1.jpg"  class="imageScale2_last" ></a></td>
+                                        </tr>
+                                    </table>
+                        
+                                </td>
+                            </tr>
+                            <tr>
+                                <td height="15" bgcolor="#F9F9F9" colspan="2" class="mobileRemove" ></td>
+                            </tr>
+                        </table>            
+                        <!-- END OF 3 COLUMN -->
+                        
+                       
+                        <!-- START SPACER -->
+                        <table width="630" border="0" cellpadding="0" cellspacing="0" class="hr" align="center"  bgcolor="#F9F9F9" >
+                          <tr>
+                            <td height="40" align="left" valign="middle"></td>
+                          </tr>
+                         </table>
+                         <!-- END SPACER -->
+                         
+                         
+                         <!-- START 2 COLUMN WITH IMAGES -->
+                        <table class="table" width="630" cellspacing="0" cellpadding="0" border="0" bgcolor="#F9F9F9" align="center" >
+                        <tbody>
+                            <tr>
+                                <td>
+            
+                                    <!-- START LEFT COLUMN -->
+                                    <table width="300" cellspacing="0" cellpadding="0" border="0" bgcolor="#F9F9F9" align="left"style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;">
+                                    <tbody>
+                                        <tr>
+                                            <td class="mobileCenter" width="300" valign="top" align="left"><a target="_blank" href="#"><img width="300" height="164" border="0" style="display:block; border:none; outline:none; text-decoration:none;" alt="image4" src="img/image4.jpg" class="imageScale2"></a></td>
+                                        </tr>
+                                        <tr>
+                                            <td height="16" bgcolor="#F9F9F9" class="mobileRemove"></td>
+                                        </tr>
+                                        <tr>
+                                            <td width="300" valign="top" align="left" style="font-family: Helvetica, Arial, sans-serif; color: #3083A7; font-weight: 200; font-size: 22px; text-align:left; vertical-align:top;" class="heading1" >Column 1</td>
+                                        </tr>
+                                        <tr>
+                                            <td height="10" bgcolor="#F9F9F9"></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="textIndent" width="300" valign="top" align="left" style="font-family: Helvetica, Arial, sans-serif; font-weight: 200; font-size: 14px; color: #808080; line-height: 24px; text-align:left; vertical-align:top;"> Same an quit most an. Admitting an mr dispt sportsmen. Tried and cause no spoil arisesti is plate. Stori longer ladies at valley get esteem estic usests leda six. Same an quit most ant admitting an mracr dispt sportsmen.</td>
+                                        </tr>
+                                        <tr>
+                                            <td height="15" bgcolor="#F9F9F9"></td>
+                                        </tr>
+                                        <tr>
+                                            <td width="300" align="left"><a style="text-decoration: none;" target="_blank" href="#"><img img src="img/button_blue.gif" alt="Continue Reading" width="150" height="40" border="0" class="button" style="display:block;" ></a></td>
+                                        </tr>
+                                        <tr>
+                                            <td height="15" bgcolor="#F9F9F9"></td>
+                                        </tr>
+                                    </tbody>
+                                    </table>
+                                    <!-- END LEFT COLUMN -->
+            
+            
+                                    <!-- START RIGHT COLUMN -->
+                                    <table width="300" cellspacing="0" cellpadding="0" border="0" bgcolor="#F9F9F9" align="right" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;">
+                                    <tbody>
+                                        <tr>
+                                            <td class="mobileCenter" width="300" valign="top" align="left"><a target="_blank" href="#"><img width="300" height="164" border="0" style="display:block; border:none; outline:none; text-decoration:none;" alt="image5" src="img/image5.jpg" class="imageScale2"></a></td>
+                                        </tr>
+                                        <tr>
+                                            <td height="16" bgcolor="#F9F9F9" class="mobileRemove"></td>
+                                        </tr>
+                                        <tr>
+                                            <td width="300" valign="top" align="left" style="font-family: Helvetica, Arial, sans-serif; color: #3083A7; font-weight: 200; font-size: 22px; text-align:left; vertical-align:top;" class="heading1" >Column 2</td>
+                                        </tr>
+                                        <tr>
+                                            <td height="10" bgcolor="#F9F9F9"></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="textIndent" width="300" valign="top" align="left" style="font-family: Helvetica, Arial, sans-serif; font-weight: 200; font-size: 14px; color: #808080; line-height: 24px; text-align:left; vertical-align:top;"> Same an quit most an. Admitting an mr dispt sportsmen. Tried and cause no spoil arisesti is plate. Stori longer ladies at valley get esteem estic usests leda six. Same an quit most ant admitting an mracr dispt sportsmen. </td>
+                                        </tr>
+                                        <tr>
+                                            <td height="15" bgcolor="#F9F9F9"></td>
+                                        </tr>
+                                        <tr>
+                                            <td width="300" align="left"><a style="text-decoration: none;" target="_blank" href="#">
+                                        <img img src="img/button_blue.gif" alt="Continue Reading" width="150" height="40" border="0" class="button" style="display:block;" >
+                                        </a></td>
+                                        </tr>
+                                        <tr>
+                                            <td height="15" bgcolor="#F9F9F9"></td>
+                                        </tr>
+                                    </tbody>
+                                    </table>
+                                    <!-- END RIGHT COLUMN -->
+            
+            
+                                </td>
+                            </tr>
+                        </tbody>
+                        </table>
+                        <!-- END 2 COLUMN WITH IMAGES -->
+                        
+                        
+                        
+                        <!-- START SPACER -->
+                        <table width="630" border="0" cellpadding="0" cellspacing="0" class="hr" align="center"  bgcolor="#F9F9F9" >
+                          <tr>
+                            <td height="40" align="left" valign="middle"></td>
+                          </tr>
+                         </table>
+                         <!-- END SPACER -->
+                         
+                         
+
+             
+                        <!-- START OF SPLASH IMAGE -->  
+                        <table width="630" border="0" cellspacing="0" cellpadding="0" align="center"  bgcolor="#e5e5e5" class="mobileCenter"   >
+                          <tr>
+                            <td valign="top" align="center" bgcolor="#e5e5e5" ><a href="#"><img src="img/image1.jpg" class="splashScale" alt="header image" border="0" style="display:block; border:none; outline:none; text-decoration:none; text-align:center;"  width="630" height="350"></a></td>
+                          </tr>
+                        </table>
+                        <!-- END OF SPLASH IMAGE -->
+                        
+                         
+
+
+                        <!-- START SPACER -->
+                        <table width="630" border="0" cellpadding="0" cellspacing="0" class="hr" align="center"  bgcolor="#F9F9F9" >
+                          <tr>
+                            <td height="30" align="left" valign="middle"></td>
+                          </tr>
+                         </table>
+                         <!-- END SPACER -->
+                         
+                         
+                         
+                        <!-- START OF FULL WIDTH -->   
+                        <table width="630" border="0" cellspacing="0" cellpadding="0" align="center"  >
+                            <tr>
+                                <td height="15" bgcolor="#F9F9F9"></td>
+                            </tr>
+                            <tr>
+                                <td valign="top" align="center" width="630" style="font-family: Helvetica, Arial, sans-serif; color: #3083A7; font-size: 22px; font-weight: 200; text-align:center; vertical-align:top;" class="heading1" >Fully responsive and retina ready (HiDPI)</td>
+                            </tr>
+                            <tr>
+                                <td height="10" bgcolor="#F9F9F9"></td>
+                            </tr>
+                            <tr>
+                                <td width="630" valign="top" align="center" style="font-family: Helvetica, Arial, sans-serif; font-size: 14px; color: #808080; line-height: 24px; font-weight: 200; text-align:center; vertical-align:top;" class="textIndent" >Yes you read that correctly. We now support not just only a beautifully coded new responsive framework, but also have built-in retina (HiDPI) support without any scripts. <a href="#" style="color:#3083A7;">Is this the first responsive retina ready email template?</a></td>
+                            </tr>
+                            <tr>
+                                <td height="15" bgcolor="#F9F9F9"></td>
+                            </tr>
+                        </table>
+                        <!-- END OF FULL WIDTH -->
+                        
+                        
+                        
+                        
+                        
+                        
+                        <!-- START OF 3 COLUMN -->
+                        <table width="630" border="0" cellspacing="0" align="center" cellpadding="0" bgcolor="#F9F9F9">
+                            <tr>
+                                <td height="15" bgcolor="#F9F9F9"></td>
+                            </tr>
+                            <tr>
+                                <td bgcolor="#F9F9F9" >
+                            
+                                    <table width="213" border="0" cellspacing="0" cellpadding="0" align="left" bgcolor="#F9F9F9" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;" >
+                                        <tr>
+                                            <td align="left" bgcolor="#F9F9F9" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;" ><a target="_blank" href="#"><img width="200" height="110" border="0" style="display:block; border:none; outline:none; text-decoration:none;" alt="Image1" src="img/image2.jpg" class="imageScale2"></a></td>
+                                        </tr>
+                                    </table>
+                            
+                                    <table width="213" border="0" cellspacing="0" cellpadding="0" align="left" bgcolor="#F9F9F9" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;" >
+                                        <tr>
+                                            <td align="left" bgcolor="#F9F9F9" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;" ><a target="_blank" href="#"><img width="200" height="110" border="0" style="display:block; border:none; outline:none; text-decoration:none;" alt="Image2" src="img/image3.jpg" class="imageScale2"></a></td>
+                                        </tr>
+                                    </table>
+                            
+                                    <table width="200" border="0" cellspacing="0" cellpadding="0" bgcolor="#F9F9F9" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;" >
+                                        <tr>
+                                            <td align="right" bgcolor="#F9F9F9" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;" ><a target="_blank" href="#"><img width="200" height="110" border="0" style="display:block; border:none; outline:none; text-decoration:none;" alt="Image3" src="img/image1.jpg"  class="imageScale2_last" ></a></td>
+                                        </tr>
+                                    </table>
+                        
+                                </td>
+                            </tr>
+                            <tr>
+                                <td height="15" bgcolor="#F9F9F9" colspan="2" class="mobileRemove" ></td>
+                            </tr>
+                        </table>            
+                        <!-- END OF 3 COLUMN -->
+                        
+                        
+                        
+                        <!-- START SPACER -->
+                        <table width="630" border="0" cellpadding="0" cellspacing="0" class="hr" align="center"  bgcolor="#F9F9F9" >
+                          <tr>
+                            <td height="40" align="left" valign="middle"></td>
+                          </tr>
+                         </table>
+                         <!-- END SPACER -->  
+
+                
+            
+            
+                        <!-- START 2 COLUMN WITH IMAGES -->
+                        <table class="table" width="630" cellspacing="0" cellpadding="0" border="0" bgcolor="#F9F9F9" align="center" >
+                        <tbody>
+                            <tr>
+                                <td>
+            
+                                    <!-- START LEFT COLUMN -->
+                                    <table width="300" cellspacing="0" cellpadding="0" border="0" bgcolor="#F9F9F9" align="left"style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;">
+                                    <tbody>
+                                        <tr>
+                                            <td class="mobileCenter" width="300" valign="top" align="left"><a target="_blank" href="#"><img width="300" height="164" border="0" style="display:block; border:none; outline:none; text-decoration:none;" alt="image4" src="img/image4.jpg" class="imageScale2"></a></td>
+                                        </tr>
+                                        <tr>
+                                            <td height="16" bgcolor="#F9F9F9" class="mobileRemove"></td>
+                                        </tr>
+                                        <tr>
+                                            <td width="300" valign="top" align="left" style="font-family: Helvetica, Arial, sans-serif; color: #3083A7; font-weight: 200; font-size: 22px; text-align:left; vertical-align:top;" class="heading1" >Column 1</td>
+                                        </tr>
+                                        <tr>
+                                            <td height="10" bgcolor="#F9F9F9"></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="textIndent" width="300" valign="top" align="left" style="font-family: Helvetica, Arial, sans-serif; font-weight: 200; font-size: 14px; color: #808080; line-height: 24px; text-align:left; vertical-align:top;"> Same an quit most an. Admitting an mr dispt sportsmen. Tried and cause no spoil arisesti is plate. Stori longer ladies at valley get esteem estic usests leda six. Same an quit most ant admitting an mracr dispt sportsmen.</td>
+                                        </tr>
+                                        <tr>
+                                            <td height="15" bgcolor="#F9F9F9"></td>
+                                        </tr>
+                                        <tr>
+                                            <td width="300" align="left"><a style="text-decoration: none;" target="_blank" href="#"><img img src="img/button_blue.gif" alt="Continue Reading" width="150" height="40" border="0" class="button" style="display:block;" ></a></td>
+                                        </tr>
+                                        <tr>
+                                            <td height="15" bgcolor="#F9F9F9"></td>
+                                        </tr>
+                                    </tbody>
+                                    </table>
+                                    <!-- END LEFT COLUMN -->
+            
+            
+                                    <!-- START RIGHT COLUMN -->
+                                    <table width="300" cellspacing="0" cellpadding="0" border="0" bgcolor="#F9F9F9" align="right" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;">
+                                    <tbody>
+                                        <tr>
+                                            <td class="mobileCenter" width="300" valign="top" align="left"><a target="_blank" href="#"><img width="300" height="164" border="0" style="display:block; border:none; outline:none; text-decoration:none;" alt="image5" src="img/image5.jpg" class="imageScale2"></a></td>
+                                        </tr>
+                                        <tr>
+                                            <td height="16" bgcolor="#F9F9F9" class="mobileRemove"></td>
+                                        </tr>
+                                        <tr>
+                                            <td width="300" valign="top" align="left" style="font-family: Helvetica, Arial, sans-serif; color: #3083A7; font-weight: 200; font-size: 22px; text-align:left; vertical-align:top;" class="heading1" >Column 2</td>
+                                        </tr>
+                                        <tr>
+                                            <td height="10" bgcolor="#F9F9F9"></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="textIndent" width="300" valign="top" align="left" style="font-family: Helvetica, Arial, sans-serif; font-weight: 200; font-size: 14px; color: #808080; line-height: 24px; text-align:left; vertical-align:top;"> Same an quit most an. Admitting an mr dispt sportsmen. Tried and cause no spoil arisesti is plate. Stori longer ladies at valley get esteem estic usests leda six. Same an quit most ant admitting an mracr dispt sportsmen. </td>
+                                        </tr>
+                                        <tr>
+                                            <td height="15" bgcolor="#F9F9F9"></td>
+                                        </tr>
+                                        <tr>
+                                            <td width="300" align="left"><a style="text-decoration: none;" target="_blank" href="#">
+                                        <img img src="img/button_blue.gif" alt="Continue Reading" width="150" height="40" border="0" class="button" style="display:block;" >
+                                        </a></td>
+                                        </tr>
+                                        <tr>
+                                            <td height="15" bgcolor="#F9F9F9"></td>
+                                        </tr>
+                                    </tbody>
+                                    </table>
+                                    <!-- END RIGHT COLUMN -->
+            
+            
+                                </td>
+                            </tr>
+                        </tbody>
+                        </table>
+                        <!-- END 2 COLUMN WITH IMAGES -->  
+
+
+                         
+
+                                      
+            
+            
+                        <!-- START SPACER -->
+                        <table width="630" border="0" cellpadding="0" cellspacing="0" class="hr" align="center"  bgcolor="#F9F9F9" >
+                          <tr>
+                            <td height="40" align="left" valign="middle"></td>
+                          </tr>
+                         </table>
+                         <!-- END SPACER -->
+                         
+                         
+                         
+                         
+                         <!-- START OF FOOTER WRAPPER -->
+                        <table width="650" align="center" height="93" border="0" cellspacing="0" cellpadding="0" bgcolor="#FF675B" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;" class="mobileCenter">
+                          <tr>
+                            <td height="93" align="left" valign="top" width="630" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;" bgcolor="#FF675B">
+                                
+                                
+                                <!-- START OF FOOTER -->
+                                <table width="630" align="center" border="0" cellspacing="0" cellpadding="0" bgcolor="#FF675B" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;">
+                                    <tr>
+                                        <td>
+
+                                            <!-- START LOGO -->
+                                            <table border="0" cellspacing="0" cellpadding="0" align="left" width="433" class="mobileCenter2" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;" bgcolor="#FF675B" >
+                                              <tr>
+                                                <td class="noBlock" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;" bgcolor="#FF675B" border="0" ><a href="#"><img src="img/bottom_logo.gif" alt="your logo text here" width="215" height="93" /></a></td>
+                                              </tr>
+                                            </table><!-- END LOGO -->
+                        
+                        
+                                            <!-- START SOCIAL -->
+                                            <table border="0" cellspacing="0" cellpadding="0" width="195" class="socialCenter" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;" bgcolor="#FF675B" >
+                                                <tr>
+                                                    <td height="30" class="mobileRemove" colspan="5" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;" bgcolor="#FF675B" ></td>
+                                                </tr>
+                                                <tr>
+                                                      <td width="35" height="30" align="left" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;" bgcolor="#FF675B" ><a href="#"><img src="img/twitter_bottom.gif" alt="Twitter" width="30" height="30" border="0" /></a></td>
+                                                        
+                                                      <td width="35" height="30" align="left" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;" bgcolor="#FF675B" ><a href="#"><img src="img/linkedin_bottom.gif" alt="LinkedIn" width="30" height="30" border="0" /></a></td>
+                                                        
+                                                      <td width="35" height="30" align="left" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;" bgcolor="#FF675B" ><a href="#"><img src="img/gplus_bottom.gif" alt="Google Plus" width="30" height="30" border="0" /></a></td>
+                                                        
+                                                      <td width="35" height="30" align="left" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;" bgcolor="#FF675B"  ><a href="#"><img src="img/facebook_bottom.gif" alt="Facebook" width="30" height="30" border="0" /></a></td>
+                                                      
+                                                      <td width="55" height="30" align="left" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;" bgcolor="#FF675B" ><a href="#"><img src="img/pinterest_bottom.gif" alt="Pinterest" width="30" height="30" border="0" /></a></td>
+                                                      
+                                                </tr>
+                                                <tr>
+                                                    <td height="20" colspan="5" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;" bgcolor="#FF675B" ></td>
+                                                </tr>
+                                            </table><!-- END SOCIAL -->
+                                
+                                    </td>
+                                </tr>
+                                </table>
+                                <!-- END OF FOOTER -->
+                                
+                            </td>
+                          </tr>
+                        </table>
+                        <!-- END OF FOOTER WRAPPER -->
+            
+
+                        <!-- START OF COPYRIGHT WRAPPER -->  
+                        <table width="100%" border="0" cellspacing="0" cellpadding="0" align="center"  bgcolor="#42484D">
+                          <tr>
+                            <td valign="top" align="center" bgcolor="#42484D" >
+                            
+                            <!-- START OF COPYRIGHT -->
+                            <table width="630" align="center" border="0" cellspacing="0" cellpadding="0" bgcolor="#42484D" style="border-collapse: collapse;mso-table-lspace: 0pt;mso-table-rspace: 0pt;">
+                                    <tr>
+                                        <td valign="top" align="center" bgcolor="#42484D" style="font-family: Helvetica, Arial, sans-serif; font-size: 11px; color: #868A8D; padding: 20px 0 20px 0; line-height: 20px; font-weight: 200; text-align:center; vertical-align:top;" ><a href="#" style="color: #ffffff;">Subscribe</a> / <a href="#" style="color: #ffffff;">Unsubscribe</a><br /><br />
+                                        This message is sent to you by Company Name, Street Address, City, State 12345 USA and delivered to <a href="mailto: you@youremail.com"style="color: #ffffff;">you@youremail.com</a><br /><br />
+                                      &copy; <a href="http://themeforest.net/user/jonathan01/portfolio?ref=jonathan01" style="color: #ffffff;">Jonathan Atkinson</a> 2013 - Created by hand in the U.S.A.</td>
+                                </tr>
+                                </table>
+                                <!-- END OF COPYRIGHT -->
+                          </tr>
+                          <tr>
+                        </table>
+                        <!-- END OF COPYRIGHT WRAPPER -->
+
+            
+                    </td>
+                </tr>
+              </table><!-- END OF EMAIL WRAPPER -->
+            
+          </td>
+        </tr>
+      </table><!-- END OF CONTENT WRAPPER -->
+
+    </td>
+  </tr>
+</table><!-- END OF PAGE WRAPPER -->
+
+</body>
+</html>

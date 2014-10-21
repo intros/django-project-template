@@ -1,0 +1,6 @@
+{% if user.is_authenticated %}
+<li title="Your Intros" class="option{% if pagename == "dashboard" %} active{% endif %}"><a href="{% url "eagle_dashboard" %}" class="entypo-home"></a></li>
+<li title="Your Contacts" class="option{% if pagename == "contacts" %} active{% endif %}"><a href="{% url "eagle_contacts" %}" class="entypo-users"></a></li>
+<li title="Share Intros" class="option{% if pagename == "invitation" %} active{% endif %}"><a href="{% url "eagle_invite" %}" class="entypo-flow-tree"></a></li>
+<li title="Resources" class="option{% if pagename == "bookmarks" %} active{% endif %}"><a href="{% url "eagle_resources" %}" class="entypo-bookmarks"></a></li>
+{% endif %}

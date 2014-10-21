@@ -1,0 +1,145 @@
+{% extends 'eagle_design/base.html' %}
+{% load static from staticfiles %}
+{% load cache %}
+{% block title %}Pay it Forward with Intros.to{% endblock %}
+{% block opengraph %}
+<meta property="og:title" content="Pay it Forward Intros Experiment "/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:url" content="https://intros.to/payitfwd"/>
+    <meta property="og:image" content="//d18rm8cl8msm70.cloudfront.net/eagle/images/Tav1pnz.jpg"/>
+    <meta property="og:site_name" content="Intros.to"/>
+    <meta property="og:description"
+          content="When you get an introduction, pay it forward and give another one. Let's create a chain of generosity this holiday season
+                   "/>
+{% endblock %}
+
+{% block header-content %}
+<div id="pifheader">
+    <h1>A Christmas Pay it Forward Intros Experiment</h1>
+    <h2>Bcc: payitfwd@intros.to #payitfwd</h2>
+    <div class="row">
+        <div class="large-5 medium-7 small-12 large-centered columns">
+            <div class="flex-video">
+                <iframe width="560" height="315" src="//www.youtube.com/embed/t3kv0NwTB6g" frameborder="0" allowfullscreen></iframe>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block left-content %}
+{% cache 600 pifleftcontent %}
+    <div class="row">
+    <div class="large-8 columns">
+      <h4>Help us create a chain reaction of giving these holidays</h4>
+      <blockquote>What if every time anyone received a helpful intro, they paid it forward - with another intro for two people in their network?</blockquote>
+      <p>The Pay it Forward Experiment is designed to answer this question.  It is led by Professor Adam Grant, author of Give and Take, who studies the importance of giving to professional success. See <a href="https://twitter.com/@AdamMGrant">@AdamMGrant</a>'s Linkedin post <a href="http://goo.gl/08oeY3">The Gift We Love to Receive but Forget to Give</a> for more.</p>
+      <h4>How the Pay It Forward Experiment works</h4>
+      <p><b>1.</b> Make an introduction between two good people you know</p>
+      <p><b>2.</b> BCC payitfwd@intros.to when you send the intro</p>
+      <p><b>3.</b> Include the text to the right at the end of your intro</p>
+        <div class="hide-for-large-up">
+        <h4 class="subheader">Include this text in your intro:</h4>
+                {% include 'eagle_design/partials/pif_textarea.html' %}
+        </div>
+      <h4>Why we're using Intros for this experiment</h4>
+      <p>Intros makes it really easy to 'count' the total intros made in the experiment when you BCC payitfwd@intros.to. Also, we'd love people who take part to tell us the stories of what happens thanks to their intros. Intros makes it fun and simple to look up intros you've made and ask what happened.</p>
+    </div>
+    <div class="large-4 columns">
+      <!-- Gallery sidebar with a block grid. Note: block grid items should be the same size for optimal results -->
+      <h4>Experiment Creators</h4>
+      <ul class="small-block-grid-2">
+          <li><a href="#"><img data-tooltip class="has-tip" title="Adam Grant, Professor and Author of Give and Take" src="//s3.amazonaws.com/static_intros/eagle/images/adam_grant_120.jpg" /></a><p>Wharton</p></li>
+          <li><a href="#"><img data-tooltip class="has-tip" title="Pascal Finette, Investment Principal, Google Giving" src="//s3.amazonaws.com/static_intros/eagle/images/pascal_finette_120.jpg" /></a><p>Google Giving</p></li>
+          <li><a href="#"><img data-tooltip class="has-tip" title="Robyn Scott, Co-founder, Intros" src="//s3.amazonaws.com/static_intros/eagle/images/robyn_scott_120.jpg" /></a><p>Intros</p></li>
+          <li><a href="#"><img data-tooltip class="has-tip" title="Alex Lovell-Troy, Co-founder, Intros" src="//s3.amazonaws.com/static_intros/eagle/images/alex_lovelltroy_120.jpg" /></a><p>Intros</p></li>
+      </ul>
+    </div>
+  </div>
+  <div class="row">
+      <div class="large-12 columns">
+      <h4>Privacy</h4>
+      <p>Intros are often made for our most important contacts and we take your privacy <b>extremely</b> seriously.
+      The intros that you log when you BCC payitfwd@intros.to will never be shared and we will NEVER contact the people you introduce.
+      All the content and contact details contained in the intro email are private to you.
+      Introductions will be completely deleted when the experiment is over (unless you choose to keep them).</p>
+      <p>For more details on the how's and why's of privacy and the experiment, we've set up a <a href="/payitfwd/privacy">special privacy page</a>. We'd welcome your comments.</p>
+  </div>
+   </div>
+   <div class="row">
+       <h5>Any questions? email <a href="mailto:robyn@intros.to">Robyn</a> or <a href="mailto:alex@intros.to">Alex</a></h5>
+   </div>
+  {% endcache %}
+{% endblock %}
+
+{% block right-content %}
+{% include 'eagle_design/partials/pif_counter_panel.html' %}
+<p class="crowd"><a href="#" data-reveal-id="join_us_modal" class="button">Join the Experiment</a></p>
+<p class="crowd">(We’ll invite you to Intros and get you started)</p>
+<br />
+<br />
+<br />
+<br />
+<div class="hide-for-medium-down">
+<h4>Include this text in your intro:</h4>
+        {% include 'eagle_design/partials/pif_textarea.html' %}
+</div>
+{% endblock %}
+
+{% block support-footer %}
+<footer>
+    <div class="row">
+        <div class="large-12 columns">
+            <div class="text-right">
+                <a href="/FAQ">F.A.Q</a>
+                <a href="https://twitter.com/introsto" target="_blank" title="TWITTER"><i class="icon-twitter"><img src="http://static_introductiones.s3.amazonaws.com/images/twitter.png" alt=""></i> @introsto</a>
+                <a href="https://twitter.com/search?q=%23payitfwdintros" target="_blank" title="TWITTER"><i class="icon-twitter"><img src="http://static_introductiones.s3.amazonaws.com/images/twitter.png" alt=""></i> #payitfwdintros</a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+{% endblock %}
+{% block modals %}
+<div class="reveal-modal" id="join_us_modal">
+    <form method=post class=custom action={% url "pif_subscribe" %}>
+        {% csrf_token %}
+        <h4>Join the Intros Pay it Forward Experiment</h4>
+        <label for=name>Name</label>
+        <input type=text placeholder="John Doe" name=name id=name></input>
+        <label for=email>Email Address</label>
+        <input type=text placeholder="john.doe@example.com" name=email id=email></input>
+        <input type=submit class="button" value="Join us"></input>
+        <p>We’re processing invites as fast as we can. We’ll aim to send yours within 24 hours.</p>
+    </form>
+     <a class="close-reveal-modal">&#215;</a>
+</div>
+{% endblock %}
+
+{% block page-js %}
+<script>
+function pad(number, length) {
+    var str = '' + number;
+    while (str.length < length) {
+        str = '0' + str;
+    }
+    return str;
+}
+  var campaigncount = {
+    dom: $('.pifcounter'),
+    initial: {{ payitfwdcount }},
+    rate: 1,
+    format: function(val) {
+      var i = pad(val.toString(),5);
+      var r=/(\d+)(\d{3})/; 
+      while( r.test(i) )
+      { i=i.replace(r,'$1,$2'); }
+      return i;
+    }
+  };
+
+$( function() {
+  // campaigncount.dom.html( campaigncount.format( campaigncount.initial ) );
+});
+
+</script>
+{% endblock %}

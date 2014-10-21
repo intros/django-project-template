@@ -1,0 +1,10 @@
+{{ custom_message|safe }}
+
+You can respond to this message or record your response through the intros.to website below.
+
+https://{{ site.domain }}/introductions/feedback/{{ followup.custom_url }}
+{% if invitation_link %}
+Track your intros by activating your personal invitation at {{ invitation_link }}
+{% else %}
+Are you a connector? Follow your introductions by requesting an invitation at http://intros.to.
+{% endif %}

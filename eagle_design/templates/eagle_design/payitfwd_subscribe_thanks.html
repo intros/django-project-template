@@ -1,0 +1,60 @@
+{% extends 'eagle_design/base.html' %}
+{% block title %}Welcome to the Pay it Forward Challenge with Intros{% endblock %}
+{% block header-content %}
+<div id="pifheader">
+    <h1>Thanks for joining our giving experiment!</h1>
+    <h2></h2>
+</div>
+{% endblock %}
+{% block left-content %}
+        <div class="panel white-bg">
+        <h4 class="subheader">Ready to make an intro?</h4>
+        <h4>You can start right now!</h4>
+            <div class="row">
+                <div class="large-10 columns">
+                <ol class="darktext">
+                <li>Introduce two great people you know who might help each other.</li>
+                <li>Bcc: payitfwd@intros.to so we can count it in the experiment.</li>
+                <li>Include this text at the bottom so they can join the experiment too.</li>
+                </ol>
+                </div>
+            </div>
+            <div class="row">
+                <div class="large-6 columns">
+                {% include 'eagle_design/partials/pif_textarea.html' %}
+                </div>
+            </div>
+            <h5>Wondering who to introduce?</h5>
+        <div class="row">
+            <p>Think of some inspiring conversations you’ve had recently. Can you help the person you spoke to with an intro to someone else you know?</p>
+        </div>
+        <div class=row>
+            <center><a class="button large center" target="_blank" href="mailto:?bcc=payitfwd@intros.to&subject=A%20Pay%20It%20Forward%20Introduction&body=%0A%0A%0AQ%3A%20Want%20to%20say%20thanks%20for%20this%20intro%3F%0AA%3A%20https%3A%2F%2Fintros.to%2FPayItFwd">Start Your Intro <span class="entypo-mail"><span></a></center>
+        </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="panel white-bg large-12 columns">
+                <h4>Share your amazing intro stories with us</h4>
+
+                <p>Someone sent us a story of how an introduction he made had created a band. Someone else told us how one introduction had lead to her getting a new job and meeting her husband.</p>
+
+                <p>How has an introduction changed your life? Send us your inspiring stories! (Just email <a href="mailto:robyn@intros.to">Robyn</a>.)</p>
+                
+            </div>
+        </div>
+{% endblock %}
+
+{% block right-content %}
+{% include 'eagle_design/partials/pif_counter_panel.html' %}
+<br />
+<div class="panel white-bg">
+    <h5>Invite others to the experiment</h5>
+    <p class="crowd"><a class="twitterbutton" target="_blank" href="https://twitter.com/share?url=https%3A%2F%2Fintros.to%2Fpayitfwd&text=Want+to+start+a+chain+reaction+of+generosity%3F+Join+the+%23payitfwdintros+experiment+%40introsto&related=%40introsto">Share on Twitter <span class="entypo-twitter"></span></a></p>
+    <p class="crowd"><a class="facebookbutton" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fintros.to%2Fpayitfwd">Share on Facebook<span class="entypo-facebook"></span></a></p>
+    <p class="crowd"><a class="linkedinbutton" target="_blank" href="http://www.linkedin.com/shareArticle?mini=true&url=https%3A%2F%2Fintros.to%2Fpayitfwd&title=The+Pay+It+Forward+Intros+Experiment&summary=Ever+wondered+if+you+can+start+a+chain+reaction+of+generosity%3F+Join+me+in+the+%23payitfwdintros+experiment.">Share on Linkedin<span class="entypo-linkedin"></span></a></p>
+    <p class="crowd"><a class="button expand" target="_blank" href="mailto:?subject=Join%20the%20payitfwd%20intros%20experiment%20with%20me&body=%0A%0A%0Ahttps%3A%2F%2Fintros.to%2Fpayitfwd">Send via Email<span class="entypo-mail"></a></p>
+</div>
+{% endblock %}
+{% block support-footer %}
+{% endblock %}

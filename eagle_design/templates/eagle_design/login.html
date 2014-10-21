@@ -1,0 +1,50 @@
+{% extends 'eagle_design/base_auth.html' %}
+
+{% block title %}Intros.To - Login{% endblock %}
+
+{% block header-content %}
+<h1>Log in to Intros.to</h1>
+{% endblock %}
+
+{% block left-content %}
+{% if form.errors %}
+<p class="error">Authentication error</p>
+{% endif %}
+
+<form action="{% url "eagle_login" %}" method="post" class="custom">
+    {% csrf_token %}
+  {% for field in form %}
+  <p>
+    {{ field.label_tag }} {{ field }}
+    {{ field.errors }}
+  </p>
+  {% endfor %}
+  <p><input  class="button medium" type="submit" value="Login" /> <a href="{% url "password_reset" %}">Forgot your password?</a></p>
+  <p>Not yet a user of Intros? <a href="#" data-reveal-id="request_invitation_modal">Request an Invitation</a></p>
+  <input type="hidden" name="next" value="{{ next }}" />
+</form>
+{% endblock %}
+
+{% block modals %}
+<div id="request_invitation_modal" class="reveal-modal medium">
+<h4>Request an invitation</h4>
+<form method="POST" action="/invite/request/">
+   {% csrf_token %}
+   <div class="row">
+   <div class="large-6 columns">
+   <input type="text" name="first_name" placeholder="FIRST NAME">
+   </div>
+   <div class="large-6 columns">
+   <input type="text" name="last_name" placeholder="LAST NAME">
+   </div>
+   </div>
+   <div class="row">
+       <div class="large-12 columns">
+           <input type="text" name="email" placeholder="EMAIL">
+       </div>
+   </div>
+   <input type=submit value="Request an Invitation!" class="button medium right" />
+</form>
+<a class="close-reveal-modal">&#215;</a>
+</div>
+ {% endblock %}

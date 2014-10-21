@@ -1,0 +1,6 @@
+{% extends 'eagle_design/settings.html' %}
+{% block header-content %}
+    <h1 class="subheader">{{ user.first_name }}'s notification preferences</h1>
+    <h2 class="subheader">To update your profile, <a href="{% url "eagle_settings" %}">click here</a></h2>
+{% endblock %}
+

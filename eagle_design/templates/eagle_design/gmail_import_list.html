@@ -1,0 +1,42 @@
+{% extends 'eagle_design/base.html' %}
+{% block title %}Your year in Review{% endblock %}
+
+{% block header-content %}
+    <h1>Review My Year of Gmail</h1>
+    <h2>Share your gmail with us and find new introductions</h2>
+{% endblock %}
+{% block left-content %}
+{% if object_list %}
+<div class=gmails>
+<form method="POST" action=/gmail/select>
+{% csrf_token %}
+{% for obj in object_list %}
+    <div class=gmail-item>
+    <div class="large-3 columns">
+        {% comment %}
+        <label for="id_{{ obj.pk }}">Add to Intros</label>
+        <input type="CHECKBOX" id="id_{{ obj.pk }}" name="{{ obj.pk }}">
+        {% endcomment %}
+        {% if obj.made %}
+        <h4 class=subheader>MADE</h4>
+        {% else %}
+        <h4 class=subheader>RECIEVED</h4>
+        {% endif %}
+        <h5 class=subheader>{{ obj.date }}</h5>
+    </div>
+    <div class="large-9 columns">
+        <h5>{{ obj.subject }}</h5>
+        <p>{{ obj.printable_recipients }}</p>
+    </div>
+</div>
+{% endfor %}
+<input type=submit name="Import Introductions" class="button" />
+</form>
+</div>
+{% else %}
+<h4>This page will automatically refresh while we ask gmail for your introductions</h4>
+{% endif %}
+{% endblock %}
+
+{% block right-content %}
+{% endblock %}
