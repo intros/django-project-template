@@ -6,8 +6,8 @@ import sys
 import dj_database_url
 
 import  django.conf.global_settings as DEFAULT_SETTINGS
-
-PROJECT_ROOT = os.path.join(os.path.dirname(__file__), '..', '..')
+PROJECT_ROOT = os.path.abspath(os.path.dirname(__name__))
+#PROJECT_ROOT = os.path.join(os.path.dirname(__file__), '..', '..')
 
 # Modify sys.path to include the lib directory
 sys.path.append(os.path.join(PROJECT_ROOT, "lib"))
@@ -106,7 +106,10 @@ STATICFILES_FINDERS = (
 )
 
 # Make this unique, and don't share it with anybody.
-SECRET_KEY = os.environ['DJANGO_SECRET_KEY']
+try:
+	SECRET_KEY = os.environ['DJANGO_SECRET_KEY']
+except:
+	SECRET_KEY = "BABABABA"
 
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
@@ -123,7 +126,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 
-    'debug_toolbar.middleware.DebugToolbarMiddleware',
+#    'debug_toolbar.middleware.DebugToolbarMiddleware',
 )
 
 ROOT_URLCONF = '{{ project_name }}.urls'
@@ -148,7 +151,7 @@ INSTALLED_APPS = (
 
     'classy_mail',
     'compressor',
-    'debug_toolbar',
+#    'debug_toolbar',
     'django_mailbox',
     'django_ses',
     'djcelery',
@@ -180,9 +183,9 @@ EMAIL_SUBJECT_PREFIX = '[{{ project_name }}] '
 INTERNAL_IPS = ('127.0.0.1', '10.0.2.2')
 
 # django-debug-toolbar settings
-DEBUG_TOOLBAR_CONFIG = {
-    'INTERCEPT_REDIRECTS': False,
-}
+#DEBUG_TOOLBAR_CONFIG = {
+#    'INTERCEPT_REDIRECTS': False,
+#}
 
 THUMBS_GENERATE_ANY_SIZE = True
 
@@ -196,6 +199,9 @@ STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 PATH_DATA = os.path.join(PROJECT_ROOT, 'data')
 PATH_LOG = os.path.join(PATH_DATA, 'logs')
 
+
+#if not os.path.exists(PATH_LOG):
+#    os.mkdir(PATH_LOG)
 
 TEMPLATE_CONTEXT_PROCESSORS = DEFAULT_SETTINGS.TEMPLATE_CONTEXT_PROCESSORS + (
     'django.core.context_processors.request',
