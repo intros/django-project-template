@@ -1,5 +1,0 @@
-{% load email_address_tags %}
-<div class="person-item" data-person={{ introducee.email_address }}>
-    <img src="{{ introducee.email_address|gravatar:40}}" class="avatar-rounded">
-    <div class="name-person">{{ introducee.email_address|fullname|truncatechars:15 }}<br /><a href="{% url "eagle_dashboard_user" introducee.email_address %}">{{ introducee.introduction_count }} Intros</a> </div>
-</div>

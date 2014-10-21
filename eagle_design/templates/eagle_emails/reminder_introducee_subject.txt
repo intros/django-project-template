@@ -1,1 +1,0 @@
-Time to say thanks for this intro? "{{ introduction.subject }}"

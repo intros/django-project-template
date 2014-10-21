@@ -1,2 +1,0 @@
-{% load humanize %}
-Info on your {{ total_introductions.by_me|add:total_introductions.for_me|ordinal }} intro
