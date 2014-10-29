@@ -2,6 +2,8 @@ import random
 import string
 
 from django.conf import settings
+from django.contrib.contenttypes.fields import GenericForeignKey
+from django.contrib.contenttypes.models import ContentType
 from django.db import models
 from django.dispatch import receiver
 
@@ -9,6 +11,9 @@ from django_mailbox.models import Message
 from django_mailbox.signals import message_received
 
 from email_reply_parser import EmailReplyParser
+
+from django.contrib.contenttypes.generic import GenericForeignKey
+from django.contrib.contenttypes.models import ContentType
 
 from taggit.managers import TaggableManager
 #http://alexgaynor.net/2010/may/04/cool-new-django-taggit-api/
@@ -248,4 +253,4 @@ def process_message(sender, message, **args):
             print "Created an introduction from %s on intro: %s" % (message.from_header, intro.pk)
         else:
             print  "Ignore introduction"
-s
+
