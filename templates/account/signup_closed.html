@@ -1,0 +1,22 @@
+{% extends "djfrontend/base.html" %}
+{% load djfrontend %}
+{% block head_css %}
+{% djfrontend_normalize %}
+{% djfrontend_twbs_css %}
+{% endblock %}
+
+{% load url from future %}
+{% load i18n %}
+
+{% block title %}{% trans "Sign Up Closed" %}{% endblock %}
+
+{% block body_content %}
+<div class="container">
+  <header class="jumbotron subhead">
+    <h1>{% trans "Sign Up Closed" %}</h1>
+  </header>
+  <p>{% trans "We are sorry, but the sign up is currently closed." %}</p>
+</div>
+{% endblock %}
+
+

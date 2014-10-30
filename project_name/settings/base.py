@@ -6,8 +6,12 @@ import sys
 import dj_database_url
 
 import  django.conf.global_settings as DEFAULT_SETTINGS
-PROJECT_ROOT = os.path.abspath(os.path.dirname(__name__))
-#PROJECT_ROOT = os.path.join(os.path.dirname(__file__), '..', '..')
+CURRENT_DIR     = os.path.dirname(__file__)
+ENV_PATH        = os.path.abspath("%s/../../" % CURRENT_DIR)
+PROJECT_ROOT    = os.path.abspath("%s/../../" % CURRENT_DIR)
+
+#PROJECT_ROOT = os.path.join(os.path.dirname(__file__))
+#PROJECT_ROOT = os.path.abspath(os.path.dirname(__name__)) #$os.path.join(os.path.dirname(__file__), '..', '..')
 
 # Modify sys.path to include the lib directory
 sys.path.append(os.path.join(PROJECT_ROOT, "lib"))
@@ -82,7 +86,7 @@ MEDIA_URL = '/media/'
 # Don't put anything in this directory yourself; store your static files
 # in apps' "static/" subdirectories and in STATICFILES_DIRS.
 # Example: "/home/media/media.lawrence.com/static/"
-STATIC_ROOT = os.path.join(PROJECT_ROOT, 'static')
+STATIC_ROOT = os.path.join(PROJECT_ROOT, 'data','static')
 
 # URL prefix for static files.
 # Example: "http://media.lawrence.com/static/"
@@ -106,10 +110,7 @@ STATICFILES_FINDERS = (
 )
 
 # Make this unique, and don't share it with anybody.
-try:
-	SECRET_KEY = os.environ['DJANGO_SECRET_KEY']
-except:
-	SECRET_KEY = "BABABABA"
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', None)
 
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
@@ -170,12 +171,16 @@ INSTALLED_APPS = (
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
 
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'invitation'
 )
 
 AUTHENTICATION_BACKENDS = (
     'social.backends.google.GoogleOAuth2',
-    'social.backends.twitter.TwitterOAuth',
     'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
 )
 
 EMAIL_SUBJECT_PREFIX = '[{{ project_name }}] '
@@ -200,11 +205,13 @@ PATH_DATA = os.path.join(PROJECT_ROOT, 'data')
 PATH_LOG = os.path.join(PATH_DATA, 'logs')
 
 
-#if not os.path.exists(PATH_LOG):
-#    os.mkdir(PATH_LOG)
+if not os.path.exists(PATH_LOG):
+    os.makedirs(PATH_LOG)
 
 TEMPLATE_CONTEXT_PROCESSORS = DEFAULT_SETTINGS.TEMPLATE_CONTEXT_PROCESSORS + (
     'django.core.context_processors.request',
+    "allauth.account.context_processors.account",
+    "allauth.socialaccount.context_processors.socialaccount",
 )
 
 LOGGING = {
@@ -289,3 +296,12 @@ SOCIAL_AUTH_PIPELINE = (
     'social.pipeline.user.user_details'
 )
 FIXTURE_DIRS = 'fixtures/'
+LOGIN_REDIRECT_URL = '/'
+LOGIN_URL = '/account/login'
+LOGOUT_URL = '/account/logout'
+INVITATION_USE_ALLAUTH=True
+ACCOUNT_INVITATION_DAYS=10
+INVITATIONS_PER_USER=5
+
+INVITE_MODE=True
+ACCOUNT_ADAPTER = "{{ project_name }}.accountadapter.AccountAdapter"
