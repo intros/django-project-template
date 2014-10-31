@@ -299,9 +299,17 @@ FIXTURE_DIRS = 'fixtures/'
 LOGIN_REDIRECT_URL = '/'
 LOGIN_URL = '/account/login'
 LOGOUT_URL = '/account/logout'
+
+#don't change it, its our default to use allauth django application.
 INVITATION_USE_ALLAUTH=True
+
+#Invitation expired days
 ACCOUNT_INVITATION_DAYS=10
+
+#Total invitation per user
 INVITATIONS_PER_USER=5
 
+# Change to false if application accept a new registration
 INVITE_MODE=True
+
 ACCOUNT_ADAPTER = "{{ project_name }}.accountadapter.AccountAdapter"
