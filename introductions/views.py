@@ -1,3 +1,5 @@
+from django.contrib.auth.decorators import login_required
+
 from django.views.generic import (CreateView,
     DetailView,
     ListView,
@@ -17,76 +19,95 @@ from django_mailbox.models import (
     Mailbox,
 )
 
-class MailboxListView(ListView):
+class LoginRequiredMixin(object):
+    @classmethod
+    def as_view(cls, **initkwargs):
+        view = super(LoginRequiredMixin, cls).as_view(**initkwargs)
+        return login_required(view)
+
+class IntroductionView(LoginRequiredMixin, TemplateView):
+    template_name = "introductions/home.html"
+
+class MailboxListView(LoginRequiredMixin, ListView):
     model = Mailbox
     template_name = "introductions/mailbox_list.html"
     paginate_by = 2
 
-class MailboxDetailView(DetailView):
+class MailboxDetailView(LoginRequiredMixin, DetailView):
     model = Mailbox
     template_name = "introductions/mailbox_detail.html"
 
-class MailboxUpdateView(UpdateView):
+class MailboxUpdateView(LoginRequiredMixin, UpdateView):
     model = Mailbox
     template_name = "introductions/mailbox_form.html"
 
-class MailboxCreateView(CreateView):
+class MailboxCreateView(LoginRequiredMixin, CreateView):
     model = Mailbox
     template_name = "introductions/mailbox_form.html"
 
-class PersonListView(ListView):
+class PersonListView(LoginRequiredMixin, ListView):
     model = Person
 
-class PersonDetailView(DetailView):
+class PersonDetailView(LoginRequiredMixin, DetailView):
     model = Person
 
-class PersonCreateView(CreateView):
+class PersonCreateView(LoginRequiredMixin, CreateView):
     model = Person
 
-class PersonUpdateView(UpdateView):
+class PersonUpdateView(LoginRequiredMixin, UpdateView):
     model = Person
 
-class PersonEmailListView(ListView):
+class PersonEmailListView(LoginRequiredMixin, ListView):
     model = PersonEmail
 
-class PersonEmailDetailView(DetailView):
+class PersonEmailDetailView(LoginRequiredMixin, DetailView):
     model = PersonEmail
 
-class PersonEmailCreateView(CreateView):
+class PersonEmailCreateView(LoginRequiredMixin, CreateView):
     model = PersonEmail
 
-class PersonEmailUpdateView(UpdateView):
+class PersonEmailUpdateView(LoginRequiredMixin, UpdateView):
     model = PersonEmail
 
-class IntroductionListView(ListView):
+class IntroductionListView(LoginRequiredMixin, ListView):
+    model = Introduction
+    
+    def get_queryset(self):
+        if self.request.user.is_authenticated():
+            try:
+                person = self.request.user.person
+                return Introduction.objects.filter(person=person)
+            except Exception,e:
+                return Introduction.objects.none()
+
+        return Introduction.objects.none()
+
+class IntroductionDetailView(LoginRequiredMixin, DetailView):
     model = Introduction
 
-class IntroductionDetailView(DetailView):
+class IntroductionCreateView(LoginRequiredMixin, CreateView):
     model = Introduction
 
-class IntroductionCreateView(CreateView):
+class IntroductionUpdateView(LoginRequiredMixin, UpdateView):
     model = Introduction
 
-class IntroductionUpdateView(UpdateView):
-    model = Introduction
-
-class IntroductionEmailListView(ListView):
+class IntroductionEmailListView(LoginRequiredMixin, ListView):
     model = IntroductionEmail
 
-class IntroductionEmailDetailView(DetailView):
+class IntroductionEmailDetailView(LoginRequiredMixin, DetailView):
     model = IntroductionEmail
 
-class IntroductionEmailCreateView(CreateView):
+class IntroductionEmailCreateView(LoginRequiredMixin, CreateView):
     model = IntroductionEmail
 
-class IntroductionEmailUpdateView(UpdateView):
+class IntroductionEmailUpdateView(LoginRequiredMixin, UpdateView):
     model = IntroductionEmail
 
-class IntroductionReminderListView(ListView):
+class IntroductionReminderListView(LoginRequiredMixin,ListView):
     model = IntroductionReminder
 
-class IntroductionReminderDetailView(DetailView):
+class IntroductionReminderDetailView(LoginRequiredMixin, DetailView):
     model = IntroductionReminder
 
-class IntroductionReminderCreateView(CreateView):
+class IntroductionReminderCreateView(LoginRequiredMixin,CreateView):
     model = IntroductionReminder

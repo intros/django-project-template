@@ -1,6 +1,7 @@
 # urls.py
 from django.conf.urls import url, include
 from introductions.views import (
+    IntroductionView,
     IntroductionCreateView,
     IntroductionDetailView,
     IntroductionListView,
@@ -32,6 +33,7 @@ from introductions.views import (
 )
 
 urlpatterns = [
+    url(r'^$', IntroductionView.as_view(), name="home"),
     url(r'^introduction/$', IntroductionCreateView.as_view(), name="introduction_create"),
     url(r'^introduction/(?P<pk>[0-9]+)/$', IntroductionDetailView.as_view(), name="introduction_detail"),
     url(r'^introductions/$', IntroductionListView.as_view(), name="introduction_list"),

@@ -32,7 +32,7 @@ AWS_HEADERS = {
 }
 
 DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
-STATICFILES_STORAGE = 'django.core.files.storage.FileSystemStorage'
+STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
 
 # For database settings, the environment value with key "DATABASE_URL" will override all the settings.
 #MYSQL
